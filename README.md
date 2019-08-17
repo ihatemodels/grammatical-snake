@@ -17,12 +17,15 @@
 - Windows:
 
 ```
+pip install beautifulsoup4, googletrans
 git clone https://github.com/ihatemodels/bg-en-spellcheck
 ```
 
 - Linux:
 
-- ```
-  git clone https://github.com/ihatemodels/bg-en-spellcheck
-  cd bg-en-spellcheck
-  ```
+ ```
+pip install beautifulsoup4, googletrans
+git clone https://github.com/ihatemodels/bg-en-spellcheck
+cd bg-en-spellcheck
+chmod +x spellcheck.py  
+```
