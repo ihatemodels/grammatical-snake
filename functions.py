@@ -1,124 +1,136 @@
 import requests
 from bs4 import BeautifulSoup
 from googletrans import Translator
-import sys
 import re
 
 
 # Check if the given word is bulgarian
 
 def has_cyrillic(word):
-    return bool(re.search('[а-яА-Я]', word))
+    return bool(re.search("[а-яА-Я]", word))
 
+# Bulgarian spellcheck
 
 def bulgarian_check(word):
 
-
-    response = requests.get(
-        'https://slovored.com/search/pravopisen-rechnik/' + word)
+    response = requests.get("https://slovored.com/search/pravopisen-rechnik/" + word)
 
     if '<span class="error">' in response.text:
-        print("\nНепозната дума: ", word,'\n\nMoже би имахте предвид:')
+        print("\nНепозната дума: ", word, "\n\nMoже би имахте предвид:")
 
+    response = BeautifulSoup(response.content, "html.parser")
 
-    response = BeautifulSoup(response.content, 'html.parser')
-    output = response.find_all('pre')[0].get_text()
-    print(output)
+    if response.find_all("pre"):
+        output = response.find_all('pre')[0].get_text()
+        print(output)
+        return True
+    else:
+        print("\nНепозната дума: '{}'".format(word))
+        return False
 
     meaning = requests.get("https://rechnik.chitanka.info/w/" + word)
-    meaning = BeautifulSoup(meaning.content, 'html.parser')
+    meaning = BeautifulSoup(meaning.content, "html.parser")
 
-    if not meaning.find(class_='meaning box') == None:
-        print(meaning.find(class_='meaning box').get_text())
+    if meaning.find(class_="meaning box"):
+        print(meaning.find(class_="meaning box").get_text())
 
 
 def get_synon_bg(word):
 
-    output = ''
-    print("Синоними:")
-    response = requests.get('https://slovored.com/search/synonymous/' + word)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    result = soup.find(class_='translation').get_text()
+    # Get the synonyms
+
+    result = requests.get("https://slovored.com/search/synonymous/" + word)
+    result = BeautifulSoup(result.content, "html.parser")
+    result = result.find(class_="translation").get_text()
 
     # Cleaning the output
 
     result = re.sub(r"[a-z]", "", result, flags=re.I)
     result = re.sub(r"\d", "", result)
-    result = result.split(',')
+    result = result.split(",")
+    result = result[:-2]
 
     # Printing in human readable format
 
-    for pos, line in enumerate(result,start=1):
+    print("Синоними:")
 
-        if pos < (len(result) - 1):
-            if pos % 5 == 0:
-                output += line + ',\n'
-            else:
-                output += line + ','
+    for element in result:
+        print(element)
 
-    print(output)
 
 def english_check(word):
 
-    response = requests.get('https://www.lexico.com/en/definition/' + word )
-    soup = BeautifulSoup(response.content, 'html.parser')
-    mistake_detector = soup.find(class_='searchHeading')
-    
-    if not mistake_detector == None:
+    response = requests.get("https://www.lexico.com/en/definition/" + word)
+    output = BeautifulSoup(response.content, "html.parser")
+    mistake_detector = output.find(class_="searchHeading")
+    word_type = output.find(class_='pos')
+
+    if mistake_detector:
+
+        similar = requests.get("https://www.collinsdictionary.com/spellcheck/english?q=" + word)
+        similar_soup = BeautifulSoup(similar.content, "html.parser")
+        similars = similar_soup.find(class_="columns2")
+
+        print('\n[**]',mistake_detector.get_text())
         
-        similar = requests.get('https://www.collinsdictionary.com/spellcheck/english?q=' + word)
-        similar_soup = BeautifulSoup(similar.content,'html.parser')
-        similars = similar_soup.find(class_='columns2')
-        
-        print(mistake_detector.get_text())
-        print("\nDid you mean:\n",similars.get_text())
+        if similars:
+            print("\nDid you mean:\n", similars.get_text())
+
+        return False
 
     else:
 
-        output = soup.find(class_='trg')
-        human_read = output.find_all(class_='ex')
-        noun = (output.find(class_='ind').get_text()) # noun explanation
-        phrases = (soup.find_all(class_='phrase'))
+        output = output.find(class_="trg")
+        examples = output.find_all(class_="ex")
+        word_explain = output.find(class_="ind").get_text()  # explanation
+        phrases = output.find_all(class_="phrase")
         
-        print('The word {} is spelled correctly\n\nNoun: {}\n'.format(word,noun))
-        
-        print ('Examples:\n')
+        print("\n[**] '{}' is spelled correctly\n\n[ {} ] {}\n".format(word,word_type.get_text(),word_explain))
+        print("[-] Example sentens:\n")
 
-        for pos,element in enumerate(human_read):
+        for pos, element in enumerate(examples):
             print(element.get_text())
-            if pos > 2: 
-                print('\n')
+            #We will print just 4 examples not all of what we scrape
+            if pos > 2:    
                 break
-        
+
         if phrases:
-            print('Phrases:\n')
+            print("Phrases:\n")
             for phrase in phrases:
                 print(phrase.get_text())
 
-        print('\n')
+        print("\n")
+        return True
 
 def get_synon_en(word):
 
-    output = ''
-    response = requests.get('https://www.lexico.com/en/synonym/' + word)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    syns = soup.find_all(class_='syn')
- 
-    for pos,syn in enumerate(syns):
-        if pos > 10:
-            break
-        else:
-            output += syn.get_text()
     
-    print('Synonyms:\n\n/p ',output)
+    syns = requests.get("https://www.lexico.com/en/synonym/" + word)
+    syns = BeautifulSoup(syns.content, "html.parser")
+    syns = syns.find_all(class_="syn")
+    syns_string = ''
 
-def translate(word,source):
+    for syn in syns:
+        
+        syns_string += (syn.get_text().replace(' ',""))
+
+    syns_list = syns_string.split(',')
+    print("[*] Synonyms:\n")
+
+    for pos,element in enumerate(syns_list):
+        if pos < 20:
+            print(element)
+        else:
+            break
+
+
+
+def translate(word, source):
 
     translator = Translator()
 
     if has_cyrillic(word):
-        print('\nEnglish: ' ,translator.translate(word,src=source).text)
+        print("\nEnglish: ", translator.translate(word, src=source).text)
     else:
-        print('\nBulgarian: ' ,translator.translate(word,src=source,dest='bg').text)
-
+        print("\nBulgarian: ", translator.translate(word, src=source, dest="bg").text)
 

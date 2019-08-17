@@ -40,17 +40,17 @@ def main():
     
 
     if has_cyrillic(word):
-        bulgarian_check(word)
-        if synonyms:
+       if bulgarian_check(word):
+          if synonyms:
             get_synon_bg(word)
-        if tran:
+          if tran:
             translate(word,'bg')
     else:
-        english_check(word)
-        if synonyms:
-            get_synon_en(word)
-        if tran:
-            translate(word,'en')
+        if english_check(word):
+            if synonyms:
+                get_synon_en(word)
+            if tran:
+                translate(word,'en')
 
 
 
