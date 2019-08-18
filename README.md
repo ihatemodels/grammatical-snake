@@ -1,16 +1,5 @@
 # Bg-En-Spellcheck
 
-<div>
-<img src="/img/gif-en.gif"
- alt="en-spellcheck"
- />
-</div>
-
-<div>
-<img src="/img/gif-bg.gif"
- alt="bg-spellcheck"
- />
-</div>
 
 #### Features
 
@@ -52,6 +41,18 @@ chmod +x spellcheck.py
 - **-t --translate [optional]** Translate from en to bg or backwards
 - **-s --synonyms [optional]** Display synonyms 
 - **-i --input [required]** Word to work with ( *The script will detect the input language ! )*
+
+<div>
+<img src="/img/gif-en.gif"
+ alt="en-spellcheck"
+ />
+</div>
+
+<div>
+<img src="/img/gif-bg.gif"
+ alt="bg-spellcheck"
+ />
+</div>
 
 #### TODO
 
