@@ -27,6 +27,6 @@ pip install -r requirements.txt
  ```
 git clone https://github.com/ihatemodels/bg-en-spellcheck
 cd bg-en-spellcheck
-pip install -r requirements.txt 
+pip3 install -r requirements.txt 
 chmod +x spellcheck.py  
 ```
