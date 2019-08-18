@@ -10,22 +10,23 @@
 
 #### Изисквания:
 
-- Python 3 => beautifulsoup4, googletrans
+- Python 3
 
 #### Инсталация:
 
 - Windows:
 
 ```
-pip install beautifulsoup4, googletrans
 git clone https://github.com/ihatemodels/bg-en-spellcheck
+pip install -r requirements.txt 
+
 ```
 
 - Linux:
 
  ```
-pip install beautifulsoup4, googletrans
 git clone https://github.com/ihatemodels/bg-en-spellcheck
 cd bg-en-spellcheck
+pip install -r requirements.txt 
 chmod +x spellcheck.py  
 ```
