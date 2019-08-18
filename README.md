@@ -1,5 +1,11 @@
 # Bg-En-Spellcheck
 
+<div>
+<img src="/img/gif-en.gif"
+ alt="en-spellcheck"
+ />
+</div>
+
 #### Features
 
 - Spellcheck
@@ -8,7 +14,6 @@
 - 2 times faster than browser dictionaries
 - No javascript, no ads 
 - Terminal simplicity
-
 
 #### Requirements
 
@@ -22,17 +27,18 @@
 ```
 git clone https://github.com/ihatemodels/bg-en-spellcheck
 pip install -r requirements.txt 
-
 ```
+
 **Linux**
 
- ```
+```
 git clone https://github.com/ihatemodels/bg-en-spellcheck
 cd bg-en-spellcheck
 pip3 install -r requirements.txt 
 chmod +x spellcheck.py  
 ```
-#### Usage 
+
+#### Usage
 
 **python3 spellcheck.py -t -s -i [word]**
 
@@ -41,10 +47,7 @@ chmod +x spellcheck.py
 - -i --input [required] Word to work with
 
 #### TODO
+
 - Bulgarian README
 - More languages support 
 - More dicts to scrape 
-
-
-
-
