@@ -1,31 +1,37 @@
 # Bg-En-Spellcheck
 
-- Проверка на правопис
+- **Spellchecking**
 
-- Проверка за синоними
+- **Synonyms **
 
-- Превод от Англииски на Български и обратно
+- **Translate from Bulgarian to English and backwards**
 
-Скрипта събира информация от няколко сайта и я представя в четим вид 
+- **Word explanation and example sentes **
 
-#### Изисквания:
+- **For the terminal lovers **
 
-- Python 3 => beautifulsoup4, googletrans
+#### Requirement
 
-#### Инсталация:
+- Python 3
+
+
+
+#### Install:
 
 - Windows:
 
 ```
-pip install beautifulsoup4, googletrans
 git clone https://github.com/ihatemodels/bg-en-spellcheck
+pip install -r requirements.txt 
 ```
 
 - Linux:
+  
+  ```
+  git clone https://github.com/ihatemodels/bg-en-spellcheck
+  cd bg-en-spellcheck/
+  pip3 install -r requirements.txt
+  chmod +x spellcheck.py
+  ```
 
- ```
-pip install beautifulsoup4, googletrans
-git clone https://github.com/ihatemodels/bg-en-spellcheck
-cd bg-en-spellcheck
-chmod +x spellcheck.py  
-```
+
