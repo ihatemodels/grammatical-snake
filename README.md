@@ -6,9 +6,17 @@
  />
 </div>
 
+<div>
+<img src="/img/gif-bg.gif"
+ alt="en-spellcheck"
+ />
+</div>
+
+
 #### Features
 
 - Spellcheck
+- Word meaning, Sentense usage
 - Synonyms 
 - Translate 
 - 2 times faster than browser dictionaries
