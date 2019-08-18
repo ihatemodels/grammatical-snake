@@ -8,19 +8,16 @@
 
 <div>
 <img src="/img/gif-bg.gif"
- alt="en-spellcheck"
+ alt="bg-spellcheck"
  />
 </div>
-
 
 #### Features
 
 - Spellcheck
 - Word meaning, Sentense usage
-- Synonyms 
-- Translate 
-- 2 times faster than browser dictionaries
-- No javascript, no ads 
+- Synonyms, Translate 
+- 2 times faster than browser dictionaries, no javascript, no ads 
 - Terminal simplicity
 
 #### Requirements
@@ -29,6 +26,8 @@
 - beautifulsoup4
 - googletrans
 - html5lib
+
+#### Install
 
 **Windows**
 
@@ -50,9 +49,9 @@ chmod +x spellcheck.py
 
 **python3 spellcheck.py -t -s -i [word]**
 
-- -t --translate [optional] Translate from en to bg or backwards
-- -s --synonyms [optional] Display synonyms 
-- -i --input [required] Word to work with
+- **-t --translate [optional]** Translate from en to bg or backwards
+- **-s --synonyms [optional]** Display synonyms 
+- **-i --input [required]** Word to work with ( *The script will detect the input language ! )*
 
 #### TODO
 
