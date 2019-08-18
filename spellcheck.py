@@ -49,8 +49,8 @@ def main():
         if english_check(word):
             if synonyms:
                 get_synon_en(word)
-            if tran:
-                translate(word,'en')
+        if tran:    
+            translate(word,'en')
 
 
 

@@ -72,7 +72,7 @@ def english_check(word):
         similars = similar_soup.find(class_="columns2")
 
         print('\n[**]',mistake_detector.get_text())
-        
+
         if similars:
             print("\nDid you mean:\n", similars.get_text())
 
@@ -81,26 +81,34 @@ def english_check(word):
     else:
 
         output = output.find(class_="trg")
-        examples = output.find_all(class_="ex")
-        word_explain = output.find(class_="ind").get_text()  # explanation
-        phrases = output.find_all(class_="phrase")
+
+        try:
+            examples = output.find_all(class_="ex")
+            word_explain = output.find(class_="ind").get_text()  # explanation
+            phrases = output.find_all(class_="phrase")
+
+        except AttributeError:
+            # TODO: Make post request to dict.org
+            print("\nThe word '{}' exist, it is spelled correctly but there are no examples and synonyms\n".format(word))
+
+        else:
+            print("\n[**] '{}' is spelled correctly\n\n[ {} ] {}\n".format(word,word_type.get_text(),word_explain))
+            print("[-] Example sentens:\n")
+
         
-        print("\n[**] '{}' is spelled correctly\n\n[ {} ] {}\n".format(word,word_type.get_text(),word_explain))
-        print("[-] Example sentens:\n")
+            for pos, element in enumerate(examples):
+                print(element.get_text())
+                #We will print just 4 examples not all of what we scrape
+                if pos > 2:    
+                    break
 
-        for pos, element in enumerate(examples):
-            print(element.get_text())
-            #We will print just 4 examples not all of what we scrape
-            if pos > 2:    
-                break
+            if phrases:
+                print("Phrases:\n")
+                for phrase in phrases:
+                    print(phrase.get_text())
 
-        if phrases:
-            print("Phrases:\n")
-            for phrase in phrases:
-                print(phrase.get_text())
-
-        print("\n")
-        return True
+            print("\n")
+            return True
 
 def get_synon_en(word):
 
