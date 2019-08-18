@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from googletrans import Translator
 import re
-
+import html5lib
 
 # Check if the given word is bulgarian
 
@@ -40,8 +40,8 @@ def get_synon_bg(word):
     # Get the synonyms
 
     result = requests.get("https://slovored.com/search/synonymous/" + word)
-    result = BeautifulSoup(result.content, "html.parser")
-    result = result.find(class_="translation").get_text()
+    result = BeautifulSoup(result.content, "html.parser").find(class_="translation").get_text()
+    
 
     # Cleaning the output
 
@@ -68,8 +68,8 @@ def english_check(word):
     if mistake_detector:
 
         similar = requests.get("https://www.collinsdictionary.com/spellcheck/english?q=" + word)
-        similar_soup = BeautifulSoup(similar.content, "html.parser")
-        similars = similar_soup.find(class_="columns2")
+        similars = BeautifulSoup(similar.content, "html.parser").find(class_="columns2")
+        
 
         print('\n[**]',mistake_detector.get_text())
 
@@ -88,8 +88,16 @@ def english_check(word):
             phrases = output.find_all(class_="phrase")
 
         except AttributeError:
-            # TODO: Make post request to dict.org
-            print("\nThe word '{}' exist, it is spelled correctly but there are no examples and synonyms\n".format(word))
+            # Form=Dict1&Query=program&Strategy=*&Database=wn&submit=Submit+query
+            
+            dict_org = requests.post('http://www.dict.org/bin/Dict',
+                        data={'Form':'Dict1','Query':word,'Strategy':'*',
+                        'Database':'wn','Sumbit':'Sumbit=query'})
+                        
+            dict_org = BeautifulSoup(dict_org.text,'html5lib').find_all('pre')[2].get_text()
+            print(dict_org)
+            
+            return True
 
         else:
             print("\n[**] '{}' is spelled correctly\n\n[ {} ] {}\n".format(word,word_type.get_text(),word_explain))
@@ -114,8 +122,8 @@ def get_synon_en(word):
 
     
     syns = requests.get("https://www.lexico.com/en/synonym/" + word)
-    syns = BeautifulSoup(syns.content, "html.parser")
-    syns = syns.find_all(class_="syn")
+    syns = BeautifulSoup(syns.content, "html.parser").find_all(class_="syn")
+
     syns_string = ''
 
     for syn in syns:
