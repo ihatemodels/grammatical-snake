@@ -1,4 +1,3 @@
-
 import argparse
 from functions import bulgarian_check,get_synon_bg,has_cyrillic,translate,english_check,get_synon_en
 
@@ -51,10 +50,6 @@ def main():
                 get_synon_en(word)
         if tran:    
             translate(word,'en')
-
-
-
-
 
 
 if __name__ == "__main__":
