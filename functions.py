@@ -14,25 +14,27 @@ def has_cyrillic(word):
 def bulgarian_check(word):
 
     response = requests.get("https://slovored.com/search/pravopisen-rechnik/" + word)
+    
+
+    word_meaning = requests.get("https://rechnik.chitanka.info/w/" + word)
+    word_meaning = BeautifulSoup(word_meaning.content, "html.parser").find(class_='data')
+    
 
     if '<span class="error">' in response.text:
         print("\nНепозната дума: ", word, "\n\nMoже би имахте предвид:")
 
     response = BeautifulSoup(response.content, "html.parser")
-
+    
     if response.find_all("pre"):
         output = response.find_all('pre')[0].get_text()
         print(output)
+        if word_meaning:
+            print(word_meaning.get_text() + '\n')
         return True
     else:
         print("\nНепозната дума: '{}'".format(word))
         return False
 
-    meaning = requests.get("https://rechnik.chitanka.info/w/" + word)
-    meaning = BeautifulSoup(meaning.content, "html.parser")
-
-    if meaning.find(class_="meaning box"):
-        print(meaning.find(class_="meaning box").get_text())
 
 
 def get_synon_bg(word):
