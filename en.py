@@ -112,7 +112,7 @@ class English():
 
     ##########################################################
            
-    ''' functions to return back the scraped values'''
+    ''' methods to return back the scraped values'''
 
 
     def get_similars(self):

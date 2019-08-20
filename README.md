@@ -57,15 +57,7 @@ chmod +x spellcheck.py
  />
 </div>
 
-#### TODO
-
-- Bulgarian README.md
-- More language support 
-- Add local database and save every search 
-- Unit tests
-- Many more
-
-#### The project is powered by those sites
+#### Those sites power the project:
 
 [Rechnik.info](http://rechnik.info)
 [Slovored](https://slovored.com/)
@@ -73,3 +65,11 @@ chmod +x spellcheck.py
 [Collinsdict](https://www.collinsdictionary.com)
 [Yourdictionary](https://sentence.yourdictionary.com)
 [Dict.org](http://www.dict.org)
+
+#### TODO
+
+- Bulgarian README.md
+- More language support
+- Add local database and save every search
+- Unit tests
+- Many more
