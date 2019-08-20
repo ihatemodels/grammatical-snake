@@ -1,4 +1,6 @@
-# Bg-En-Spellcheck
+# bg-en-spellcheck
+
+The script is scraping the web at the moment, and you need an internet connection. Тhe priority over the browser dictionaries is the speed and simplicity of how information is presenting. The goal of the project is to add more functionality like grammar rules, local database, sentence translate and analyse. 
 
 #### Features
 
@@ -58,10 +60,10 @@ chmod +x spellcheck.py
 #### TODO
 
 - Bulgarian README.md
-- More languages support 
-- More dicts to scrape 
+- More language support 
 - Add local database and save every search 
 - Unit tests
+- Many more
 
 #### TOFIX
 
