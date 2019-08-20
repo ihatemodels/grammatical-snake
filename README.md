@@ -67,12 +67,14 @@ chmod +x spellcheck.py
 
 #### The project is powered by those sites
 
-#### Bulgarian         English
+[Rechnik.info](http://rechnik.info)            
 
-[Rechnik.info](http://rechnik.info)             [Lexico](https://www.lexico.com)
+[Slovored](https://slovored.com/)                   
 
-[Slovored](https://slovored.com/)                   [Collinsdict](https://www.collinsdictionary.com)    
+[Collinsdict]([https://www.collinsdictionary.com](https://www.collinsdictionary.com)
 
-                                   [Yourdictionary](https://sentence.yourdictionary.com)
+[Yourdictionary](https://sentence.yourdictionary.com)
 
-                                   [Dict.org](http://www.dict.org)
+[Dict.org](http://www.dict.org)
+
+[Lexico](https://www.lexico.com)
