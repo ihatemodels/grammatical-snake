@@ -1,8 +1,8 @@
 # bg-en-spellcheck
 
-The script is scraping the web at the moment, and you need an internet connection. Тhe priority over the browser dictionaries is the speed and simplicity of how information is presenting. The goal of the project is to add more functionality like grammar rules, local database, sentence translate and analyse. 
+The script is scraping the web at the moment, so you need an internet connection. Тhe priority over the browser dictionaries is the speed and simplicity of how information is presenting. The goal of the project is to add more functionality like grammar rules, local database, sentence translate and analyse. 
 
-#### Features
+## Features
 
 - Spellcheck
 - Word meaning, Sentense usage
@@ -10,24 +10,24 @@ The script is scraping the web at the moment, and you need an internet connectio
 - 2 times faster than browser dictionaries, no javascript, no ads 
 - Terminal simplicity
 
-#### Requirements
+### Requirements
 
 - Python 3
 - beautifulsoup4
 - html5lib
 
-#### Install
+### Install
 
 **It is always good practice to create separate virtual env !** 
 
-**Windows**
+- **Windows**
 
 ```
 git clone https://github.com/ihatemodels/bg-en-spellcheck
 pip install -r requirements.txt 
 ```
 
-**Linux**
+- **Linux**
 
 ```
 git clone https://github.com/ihatemodels/bg-en-spellcheck
@@ -36,7 +36,7 @@ pip3 install -r requirements.txt
 chmod +x spellcheck.py  
 ```
 
-#### Usage
+### Usage
 
 **python3 spellcheck.py -t -s -i [word]**
 
@@ -68,7 +68,3 @@ chmod +x spellcheck.py
 #### TOFIX
 
 the html5lib used to scrape dict.org is really slow
-
-
-
-
