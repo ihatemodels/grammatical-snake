@@ -1,6 +1,6 @@
 # bg-en-spellcheck
 
-The script is scraping the web at the moment, so you need an internet connection. Тhe priority over the browser dictionaries is the speed and simplicity of how information is presenting. The goal of the project is to add more functionality like grammar rules, local database, sentence translate and analyse.
+The script is scraping the web at the moment, and you need an internet connection. So far supported languages are Bulgarian, and English. Тhe priority over the browser dictionaries is the speed and simplicity of how information is presenting. The goal of the project is to add more functionality like grammar rules, local database, sentence-translate, write style analysе, more languages support and many more.
 
 ## Features
 
