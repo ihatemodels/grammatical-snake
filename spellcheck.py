@@ -1,7 +1,14 @@
 import argparse
-from functions import is_cyrillic,Bulgarian,English
+import re
+## Local imports 
 
+from bg import Bulgarian
+from en import English
 
+# Check the input language
+
+def is_cyrillic(word):
+    return bool(re.search("[а-яА-Я]", word))
 
 def main():
     
