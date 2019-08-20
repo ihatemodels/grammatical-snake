@@ -1,18 +1,18 @@
 import argparse
-from functions import bulgarian_check,get_synon_bg,has_cyrillic,translate,english_check,get_synon_en
+from functions import is_cyrillic,Bulgarian,English
 
 
 
 def main():
     
     parser = argparse.ArgumentParser(
-        description='Termianl spell-check, synonyms and translate')
+        description='Termianl spell-check, word-meaning, synonyms, translate and many more')
 
     parser.add_argument(
-        '--synonyms',
-        '-s',
-        dest='synonyms',
-        help='Pass the argument to display synonyms.',
+        '--details',
+        '-d',
+        dest='details',
+        help='Pass the argument to display word meaning and synonyms.',
         action='store_true'    
     )
 
@@ -20,7 +20,7 @@ def main():
         '--input',
         '-i',
         dest='word',
-        help='Pass a word in bulgarian or in english',
+        help='Pass a word in bulgarian or in english. In english the word must be singular',
         required=True
     )
 
@@ -28,28 +28,22 @@ def main():
         '--translate',
         '-t',
         dest='translate',
-        help='Translate from bg to en or from en to bg',
+        help='Translate from bulgarian to english',
         action='store_true'
     )
 
     args=parser.parse_args()
     word = args.word
-    synonyms = args.synonyms
-    tran = args.translate
+    details = args.details
+    translate = args.translate
     
 
-    if has_cyrillic(word):
-       if bulgarian_check(word):
-          if synonyms:
-            get_synon_bg(word)
-          if tran:
-            translate(word,'bg')
+    if is_cyrillic(word):
+        new_word = Bulgarian(word,details,translate)
+        new_word.display()
     else:
-        if english_check(word):
-            if synonyms:
-                get_synon_en(word)
-        if tran:    
-            translate(word,'en')
+        new_word = English(word,details)
+        new_word.display()
 
 
 if __name__ == "__main__":

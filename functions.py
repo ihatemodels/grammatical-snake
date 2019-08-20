@@ -1,154 +1,236 @@
 import requests
 from bs4 import BeautifulSoup
-from googletrans import Translator
 import re
 import html5lib
 
 # Check if the given word is bulgarian
 
-def has_cyrillic(word):
+def is_cyrillic(word):
     return bool(re.search("[а-яА-Я]", word))
 
-# Bulgarian spellcheck
-
-def bulgarian_check(word):
-
-    response = requests.get("https://slovored.com/search/pravopisen-rechnik/" + word)
-    
-
-    word_meaning = requests.get("https://rechnik.chitanka.info/w/" + word)
-    word_meaning = BeautifulSoup(word_meaning.content, "html.parser").find(class_='data')
-    
-
-    if '<span class="error">' in response.text:
-        print("\nНепозната дума: ", word, "\n\nMoже би имахте предвид:")
-
-    response = BeautifulSoup(response.content, "html.parser")
-    
-    if response.find_all("pre"):
-        output = response.find_all('pre')[0].get_text()
-        print(output)
-        if word_meaning:
-            print(word_meaning.get_text() + '\n')
-        return True
-    else:
-        print("\nНепозната дума: '{}'".format(word))
-        return False
-
-
-
-def get_synon_bg(word):
-
-    # Get the synonyms
-
-    result = requests.get("https://slovored.com/search/synonymous/" + word)
-    result = BeautifulSoup(result.content, "html.parser").find(class_="translation").get_text()
-    
-
-    # Cleaning the output
-
-    result = re.sub(r"[a-z]", "", result, flags=re.I)
-    result = re.sub(r"\d", "", result)
-    result = result.split(",")
-    result = result[:-2]
-
-    # Printing in human readable format
-
-    print("Синоними:")
-
-    for element in result:
-        print(element)
-
-
-def english_check(word):
-
-    response = requests.get("https://www.lexico.com/en/definition/" + word)
-    output = BeautifulSoup(response.content, "html.parser")
-    mistake_detector = output.find(class_="searchHeading")
-    word_type = output.find(class_='pos')
-
-    if mistake_detector:
-
-        similar = requests.get("https://www.collinsdictionary.com/spellcheck/english?q=" + word)
-        similars = BeautifulSoup(similar.content, "html.parser").find(class_="columns2")
-        
-
-        print('\n[**]',mistake_detector.get_text())
-
-        if similars:
-            print("\nDid you mean:\n", similars.get_text())
-
-        return False
-
-    else:
-
-        output = output.find(class_="trg")
-
+  
+class Bulgarian:
+   
+    def __init__(self,word,details,translate):
+       
+        self.word = word
+        self.is_details = details
+        self.is_translate = translate
+        self.error = str
+        self.forms = str
+        self.synonyms  = str
+        self.meaning  = str
+        self.translated  = str
+        self.is_correct = bool
+        self.set_spellcheck()
+ 
+        if self.is_details:
+            self.set_meaning_syns()
+ 
+ 
+    ''' spellcheck the given word and set the is_correct and fill the self.forms'''
+ 
+   
+    def set_spellcheck(self):
+ 
+        spellcheck = requests.get("https://slovored.com/search/pravopisen-rechnik/" + self.word)
+        spellcheck = BeautifulSoup(spellcheck.content, "html.parser")
+ 
         try:
-            examples = output.find_all(class_="ex")
-            word_explain = output.find(class_="ind").get_text()  # explanation
-            phrases = output.find_all(class_="phrase")
+            error = spellcheck.find(class_='error')
+            self.is_correct = False
+            self.error = error.get_text()
+            self.forms = spellcheck.find('pre').get_text()
+        except:
+            self.is_correct = True
+            self.forms = spellcheck.find('pre').get_text()
+           
+    ''' setting the meaning, synonyms and the tranlasted form of the give word
+       if there is no meaning or syns the variables will be empty '''
+ 
+    def set_meaning_syns(self):
+ 
+        data = requests.get('http://rechnik.info/' + self.word)
+        mistake = BeautifulSoup(data.content,'html.parser').find(class_='word_no_desc')
+        data = BeautifulSoup(data.content,'html.parser').find_all(class_='defbox')
+ 
+        if not mistake:
+           
+            try:
+                self.meaning = data[0].get_text()
+                self.synonyms = data[1].get_text()
+                self.translated = data[2].get_text()
+            except IndexError:
+                pass
+        else:
+            self.meaning = ''
+            self.synonyms =''
+            self.translated =''
+ 
+    ''' Check which arguments are passed and
+       display the variables in human readable format  '''
+ 
+    def display(self):
+ 
+        if self.is_correct:
+            print("\nДумата '{}' е написана правилно\n".format(self.word))
+            print(self.forms)
+            if self.is_details:
+                print("Tълковен речник: {} \n".format(self.meaning))
+                print("Синоними: \n\n {} \n\n".format(self.synonyms))
+            if self.is_translate:
+                print("Превод с примери: \n\n {} \n ".format(self.translated))
+        else:
+            print(self.error)
+            print(self.forms)
+ 
+    ##########################################################
+           
+    ''' functions to return back the scraped values'''
+ 
+    def get_synonyms(self):
+ 
+        return self.synonyms
+ 
+    def get_forms(self):
+ 
+        return self.forms
+ 
+    def get_meaning(self):
+ 
+        return self.meaning
+ 
+    def get_translate(self):
+ 
+        return self.translated
+   
+ 
+ 
+class English():
+ 
+    def __init__(self,word,details):
+       
+        self.word = word
+        self.is_details = details
+        self.error = str
+        self.similars = str
+        self.sentences = ''
+        self.synonyms  = ''
+        self.meaning  = str
+        self.word_type  = str
+        self.is_correct = bool
+        self.set_atributes()
 
-        except AttributeError:
-            # Form=Dict1&Query=program&Strategy=*&Database=wn&submit=Submit+query
+        if self.is_details:
+            self.set_synonyms()
+ 
+    def set_atributes(self):
+ 
+        spellcheck = requests.get("https://www.lexico.com/en/definition/" + self.word)
+        spellcheck = BeautifulSoup(spellcheck.content,'html.parser')
+        self.error = spellcheck.find(class_='searchHeading')
+ 
+        if self.error:
+
+            self.is_correct = False
+            similars = requests.get("https://www.collinsdictionary.com/spellcheck/english?q=" + self.word)
+            similars = BeautifulSoup(similars.content, 'html.parser').find(class_='columns2')
             
-            dict_org = requests.post('http://www.dict.org/bin/Dict',
-                        data={'Form':'Dict1','Query':word,'Strategy':'*',
+            if similars:
+                self.similars = similars.get_text()
+
+        else:
+            self.word_type = spellcheck.find(class_='pos').get_text()
+
+            try:
+
+
+                
+                dict_org = requests.post('http://www.dict.org/bin/Dict',
+                        data={'Form':'Dict1','Query':self.word,'Strategy':'*',
                         'Database':'wn','Sumbit':'Sumbit=query'})
+
+                dict_org = BeautifulSoup(dict_org.text,'html5lib').find_all('pre')[2].get_text()
+
+                self.meaning = dict_org
+
+                sentences = requests.get('https://sentence.yourdictionary.com/' + self.word)
+                sentences = BeautifulSoup(sentences.content,'html.parser').find_all(class_='sentence component')[0:3]
+
+                if self.is_details:
+                    for sentence in sentences:
+
+                        self.sentences += (sentence.get_text() + '\n')
+
+                
+             
+            except IndexError:
+                pass
                         
-            dict_org = BeautifulSoup(dict_org.text,'html5lib').find_all('pre')[2].get_text()
-            print(dict_org)
-            
-            return True
-
-        else:
-            print("\n[**] '{}' is spelled correctly\n\n[ {} ] {}\n".format(word,word_type.get_text(),word_explain))
-            print("[-] Example sentens:\n")
-
-        
-            for pos, element in enumerate(examples):
-                print(element.get_text())
-                #We will print just 4 examples not all of what we scrape
-                if pos > 2:    
-                    break
-
-            if phrases:
-                print("Phrases:\n")
-                for phrase in phrases:
-                    print(phrase.get_text())
-
-            print("\n")
-            return True
-
-def get_synon_en(word):
-
+    ################################################
     
-    syns = requests.get("https://www.lexico.com/en/synonym/" + word)
-    syns = BeautifulSoup(syns.content, "html.parser").find_all(class_="syn")
+    ''' !!! Note the method will return the synonyms as a list '''
+            
+    def set_synonyms(self):
 
-    syns_string = ''
+        syns = requests.get("https://www.lexico.com/en/synonym/" + self.word)
+        syns = BeautifulSoup(syns.content, "html.parser").find_all(class_="syn") 
 
-    for syn in syns:
         
-        syns_string += (syn.get_text().replace(' ',""))
 
-    syns_list = syns_string.split(',')
-    print("[*] Synonyms:\n")
+        for syn in syns:
+            
+            self.synonyms += (syn.get_text())
 
-    for pos,element in enumerate(syns_list):
-        if pos < 20:
-            print(element)
+        self.synonyms = self.synonyms.split(',')
+        
+
+        
+        ''' Check which arguments are passed and
+       display the variables in human readable format  '''
+
+    def display(self):
+        if self.is_correct:
+            print("\n[**] '{}' is spelled correctly\n\n[ {} ]\n {}\n".format(self.word,self.word_type,self.meaning))
+            if self.is_details:
+                print("[-] Example sentens:\n")
+                print(self.sentences)
+                print("[*] Synonyms:\n")
+                for pos,syn in enumerate(self.synonyms):
+                    if pos < 15:
+                        print(syn.strip(' '))
+                    else:
+                        break
+
         else:
-            break
+            print('\n[**]',self.error.get_text())
+            if self.similars:
+                print("\nDid you mean:\n {}".format(self.similars))
+
+    ##########################################################
+           
+    ''' functions to return back the scraped values'''
 
 
+    def get_similars(self):
 
-def translate(word, source):
+        return self.similars
 
-    translator = Translator()
+    def get_sentences(self):
 
-    if has_cyrillic(word):
-        print("\nEnglish: ", translator.translate(word, src=source).text)
-    else:
-        print("\nBulgarian: ", translator.translate(word, src=source, dest="bg").text)
+        return self.sentences
+
+    def get_synonyms(self):           
+
+        return self.synonyms
+
+    def get_meaning(self):
+
+        return self.meaning
+
+    def get_word_type(self):
+
+        return self.word_type
+
+
 
