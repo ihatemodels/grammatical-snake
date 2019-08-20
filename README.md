@@ -69,8 +69,10 @@ chmod +x spellcheck.py
 
 #### Bulgarian                                         English
 
-[Rechnik.info](http://rechnik.info)    [Slovored](https://slovored.com/)                                 [Lexico](https://www.lexico.com)  [Collinsdict](https://www.collinsdictionary.com)  [Yourdictionary](https://sentence.yourdictionary.com)  [Dict.org](http://www.dict.org)
+[Rechnik.info](http://rechnik.info)                                                     [Lexico](https://www.lexico.com)
 
+[Slovored](https://slovored.com/)                                                           [Collinsdict](https://www.collinsdictionary.com)    
 
+                                                                           [Yourdictionary](https://sentence.yourdictionary.com)
 
-
+                                                                           [Dict.org](http://www.dict.org)
