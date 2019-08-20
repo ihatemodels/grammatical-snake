@@ -57,7 +57,7 @@ chmod +x spellcheck.py
  />
 </div>
 
-#### Those sites power the project:
+#### Powered by:
 
 [Rechnik.info](http://rechnik.info)
 [Slovored](https://slovored.com/)
