@@ -14,7 +14,7 @@ class English():
         self.similars = str
         self.sentences = ''
         self.synonyms  = ''
-        self.meaning  = str
+        self.meaning  = ''
         self.word_type  = str
         self.is_correct = bool
         self.set_atributes()
@@ -41,8 +41,25 @@ class English():
             self.word_type = spellcheck.find(class_='pos').get_text()
 
             try:
+                usage = requests.get("https://www.collinsdictionary.com/dictionary/english/" + self.word)
+                example = BeautifulSoup(usage.content,'html.parser').find_all(class_='def')
+                word_type1 = BeautifulSoup(usage.content,'html.parser').find_all(class_='pos')
 
+                for definition,word in zip(word_type1,example):
+                    self.meaning += ("\n[*{}]:\n{}\n".format(definition.get_text(),word.get_text()))
 
+                sentences = requests.get('https://sentence.yourdictionary.com/' + self.word)
+                sentences = BeautifulSoup(sentences.content,'html.parser').find_all(class_='sentence component')[0:3]
+
+                if self.is_details:
+                    for sentence in sentences:
+                        self.sentences += (sentence.get_text() + '\n')
+
+                ''' dict.org in case of any errors the reason its not used for main dict cuz of 
+                html5lib is slower than html.parser and the post req also 
+                '''
+
+            except:
                 
                 dict_org = requests.post('http://www.dict.org/bin/Dict',
                         data={'Form':'Dict1','Query':self.word,'Strategy':'*',
@@ -52,18 +69,6 @@ class English():
 
                 self.meaning = dict_org
 
-                sentences = requests.get('https://sentence.yourdictionary.com/' + self.word)
-                sentences = BeautifulSoup(sentences.content,'html.parser').find_all(class_='sentence component')[0:3]
-
-                if self.is_details:
-                    for sentence in sentences:
-
-                        self.sentences += (sentence.get_text() + '\n')
-
-                
-             
-            except IndexError:
-                pass
                         
     ################################################
     
@@ -89,7 +94,7 @@ class English():
 
     def display(self):
         if self.is_correct:
-            print("\n[**] '{}' is spelled correctly\n\n[ {} ]\n {}\n".format(self.word,self.word_type,self.meaning))
+            print("\n[**] '{}' is spelled correctly\n\n {}\n".format(self.word,self.meaning))
             if self.is_details:
                 print("[-] Example sentens:\n")
                 print(self.sentences)
@@ -129,6 +134,5 @@ class English():
     def get_word_type(self):
 
         return self.word_type
-
 
 

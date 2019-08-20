@@ -19,7 +19,7 @@ def main():
         '--details',
         '-d',
         dest='details',
-        help='Pass the argument to display word meaning and synonyms.',
+        help='Pass the argument to display examples and synonyms.',
         action='store_true'    
     )
 
@@ -35,7 +35,7 @@ def main():
         '--translate',
         '-t',
         dest='translate',
-        help='Translate from bulgarian to english',
+        help='Translate from bulgarian to english only atm',
         action='store_true'
     )
 
@@ -51,6 +51,7 @@ def main():
     else:
         new_word = English(word,details)
         new_word.display()
+
 
 
 if __name__ == "__main__":

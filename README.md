@@ -65,6 +65,18 @@ chmod +x spellcheck.py
 - Unit tests
 - Many more
 
-#### TOFIX
+#### The project is powered by those sites
 
-the html5lib used to scrape dict.org is really slow
+- **Bulgarians**
+
+[Rechnik.info](http://rechnik.info)    [Slovored](https://slovored.com/)
+
+* **English**
+  
+  [Lexico](https://www.lexico.com)    [Collinsdict](https://www.collinsdictionary.com)    [Yourdictionary](https://sentence.yourdictionary.com)    [Dict.org](http://www.dict.org)
+  
+  
+  
+  
+
+
