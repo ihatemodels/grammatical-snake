@@ -4,11 +4,11 @@ The script is scraping the web at the moment, and you need an internet connectio
 
 ## Features
 
-- Spellcheck
+- Spellcheck.
 - Word meaning, Sentense usage
 - Synonyms, Translate 
-- 2 times faster than browser dictionaries, no javascript, no ads 
-- Terminal simplicity
+- Faster than browser dictionaries, no javascript, no ads. 
+- Terminal simplicity.
 
 ### Requirements
 
@@ -38,12 +38,12 @@ chmod +x spellcheck.py
 
 ### Usage
 
-**python3 spellcheck.py -t -s -i [word]**
+**python3 spellcheck.py -t -d -i [word]**
 
-- **-t --translate [optional]** Translate from Bulgarian to English with examples
+- **-t --translate [optional]** Translate from Bulgarian to English with examples.
   -    TODO: Add English to Bulgarian translate
-- **-d- -details [optional]** Display synonyms, word meaning, detailed information 
-- **-i --input [required]** Word to work with ( *The script will detect the input language ! )*
+- **-d- -details [optional]** Display synonyms and examples. 
+- **-i --input [required]** Word to work with. ( *The script will detect the input language ! )*
 
 <div>
 <img src="/img/gif-en.gif"
@@ -67,16 +67,10 @@ chmod +x spellcheck.py
 
 #### The project is powered by those sites
 
-- **Bulgarians**
+#### Bulgarian                                         English
 
-[Rechnik.info](http://rechnik.info)    [Slovored](https://slovored.com/)
+[Rechnik.info](http://rechnik.info)    [Slovored](https://slovored.com/)                                 [Lexico](https://www.lexico.com)  [Collinsdict](https://www.collinsdictionary.com)  [Yourdictionary](https://sentence.yourdictionary.com)  [Dict.org](http://www.dict.org)
 
-* **English**
-  
-  [Lexico](https://www.lexico.com)    [Collinsdict](https://www.collinsdictionary.com)    [Yourdictionary](https://sentence.yourdictionary.com)    [Dict.org](http://www.dict.org)
-  
-  
-  
-  
+
 
 
