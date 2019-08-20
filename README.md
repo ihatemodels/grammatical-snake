@@ -67,10 +67,10 @@ chmod +x spellcheck.py
 
 #### The project is powered by those sites
 
-[Rechnik.info](http://rechnik.info)            
+[Rechnik.info](http://rechnik.info) 
 [Slovored](https://slovored.com/) 
-[Lexico](https://www.lexico.com)             
-[Slovored](https://slovored.com/)                   
-[Collinsdict](https://www.collinsdictionary.com)    
+[Lexico](https://www.lexico.com)   
+[Slovored](https://slovored.com/)
+[Collinsdict](https://www.collinsdictionary.com)
 [Yourdictionary](https://sentence.yourdictionary.com)
 [Dict.org](http://www.dict.org)
