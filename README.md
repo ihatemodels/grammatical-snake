@@ -52,7 +52,7 @@ chmod +x spellcheck.py
 </div>
 
 <div>
-<img src="/img/gif-bg.gif"
+<img src="/img/bg-full.gif"
  alt="bg-spellcheck"
  />
 </div>
