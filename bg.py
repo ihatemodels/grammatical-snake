@@ -45,14 +45,23 @@ class Bulgarian:
  
         data = requests.get('http://rechnik.info/' + self.word)
         mistake = BeautifulSoup(data.content,'html.parser').find(class_='word_no_desc')
+        headers = BeautifulSoup(data.content,'html.parser').find_all(class_='word_description_label')
         data = BeautifulSoup(data.content,'html.parser').find_all(class_='defbox')
+        
  
         if not mistake:
            
             try:
-                self.meaning = data[0].get_text()
-                self.synonyms = data[1].get_text()
-                self.translated = data[2].get_text()
+                if len(headers) == 3:
+                    self.meaning = data[0].get_text()
+                    self.synonyms = 'Не бяха открити синоними'
+                    self.translated = data[1].get_text()
+
+                else:
+                    self.meaning = data[0].get_text()
+                    self.synonyms = data[1].get_text()
+                    self.translated = data[2].get_text()
+
             except IndexError:
                 pass
         else:
@@ -96,4 +105,3 @@ class Bulgarian:
     def get_translate(self):
  
         return self.translated
-   
