@@ -2,8 +2,8 @@ import argparse
 import re
 ## Local imports 
 
-from bg import Bulgarian
-from en import English
+from dicts.bg import Bulgarian
+from dicts.en import English
 
 # Check the input language
 
