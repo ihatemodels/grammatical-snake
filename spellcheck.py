@@ -27,26 +27,19 @@ def main():
         '--input',
         '-i',
         dest='word',
-        help='Pass a word in bulgarian or in english. In english the word must be singular',
-        required=True
-    )
-
-    parser.add_argument(
-        '--translate',
-        '-t',
-        dest='translate',
-        help='Translate from bulgarian to english only atm',
-        action='store_true'
+        help='Pass a word in bulgarian or in english. In english the word must be singular'
     )
 
     args=parser.parse_args()
     word = args.word
     details = args.details
-    translate = args.translate
     
-
+    if not word:
+        print('Please specify a word')
+        exit()
+        
     if is_cyrillic(word):
-        new_word = Bulgarian(word,details,translate)
+        new_word = Bulgarian(word,details)
         new_word.display()
     else:
         new_word = English(word,details)

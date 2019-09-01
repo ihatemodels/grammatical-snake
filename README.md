@@ -12,7 +12,7 @@ The script is scraping the web at the moment. So far supported languages are Bul
 
 ### Requirements
 
-- Python 3
+- Python3
 - beautifulsoup4
 - html5lib
 
@@ -38,10 +38,8 @@ chmod +x spellcheck.py
 
 ### Usage
 
-**python3 spellcheck.py -t -d -i [word]**
+**python3 spellcheck.py -d -i [word]**
 
-- **-t --translate [optional]** Translate from Bulgarian to English with examples.
-  -    TODO: Add English to Bulgarian translate
 - **-d- -details [optional]** Display synonyms and examples. 
 - **-i --input [required]** Word to work with. ( *The script will detect the input language ! )*
 
