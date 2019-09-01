@@ -1,6 +1,6 @@
 # bg-en-spellcheck
 
-The script is scraping the web at the moment. So far supported languages are Bulgarian, and English. Тhe priority over the browser dictionaries is the speed and simplicity of how information is presenting. The goal of the project is to add more functionality like grammar rules, local database, sentence-translate, write style analysе, more languages support and many more.
+Simple terminal dictionary and spellcheck script. So far supported languages are Bulgarian, and English. Тhe priority over the browser dictionaries is the speed and simplicity of presenting. The goal of the project is to add more functionality like grammar rules, local database, sentence-translate, write style analysе, more languages support and many more.
 
 ## Features
 
@@ -40,8 +40,11 @@ chmod +x spellcheck.py
 
 **python3 spellcheck.py -d -i [word]**
 
-- **-d- -details [optional]** Display synonyms and examples. 
-- **-i --input [required]** Word to work with. ( *The script will detect the input language ! )*
+- **-d- -details [optional]** Display synonyms examples and meaning. 
+- **-i --input [required]** Word to spellcheck. ( *The script will detect the input language ! )*
+
+**The color schema is suitable under dark background color.**
+**For windows users it's recommended to use terminal emulator like Terminus.**
 
 <div>
 <img src="/img/gif-en.gif"
@@ -52,6 +55,12 @@ chmod +x spellcheck.py
 <div>
 <img src="/img/bg-full.gif"
  alt="bg-spellcheck"
+ />
+</div>
+
+<div>
+<img src="/img/mixed.gif"
+ alt="mixed"
  />
 </div>
 
@@ -70,4 +79,3 @@ chmod +x spellcheck.py
 - More language support
 - Add local database and save every search
 - Unit tests
-- Many more

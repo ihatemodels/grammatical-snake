@@ -50,6 +50,9 @@ class English:
             elif "adjective" in w_type:
                 self.word_type = "adjective"
                 self.forms = w_type[9:]
+            elif "noun" in w_type and len(w_type) > 4:
+                self.word_type = "noun"
+                self.forms = w_type[4:]
             else:
                 self.word_type = w_type
 
@@ -59,9 +62,9 @@ class English:
                     sentences = requests.get(
                         "https://sentence.yourdictionary.com/" + self.word
                     )
-                    sentences = BeautifulSoup(
-                        sentences.content, "html.parser"
+                    sentences = BeautifulSoup(sentences.content, "html.parser"
                     ).find_all(class_="sentence component")[0:3]
+
                     if self.is_details:
                         for sentence in sentences:
                             self.sentences += sentence.get_text() + "\n\n"
@@ -138,17 +141,19 @@ class English:
             if not self.synonyms == ", ":
                 print(yellow)
                 print("[*] Synonyms:")
-                print(reset)
+                print(cyan)
                 print(self.synonyms)
 
             if self.is_details:
+                
+                if self.meaning:
+                    print(yellow,"\n[*] Meaning:\n",reset)
+                    print(self.meaning)
 
                 if self.sentences:
                     print(yellow)
                     print("[-] Example sentens:\n", reset)
                     print(self.sentences)
-
-                print(self.meaning)
 
         else:
             print(red, "\n[**]", yellow, self.error.get_text(), reset)

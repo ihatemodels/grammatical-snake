@@ -72,21 +72,23 @@ class Bulgarian:
         reset = "\033[0m"
         yellow = "\033[93m"
         red = "\033[91m"
+        cyan = "\033[36m"
+
 
         if self.is_correct:
             print(yellow)
             print("[**] Думата '{}' е написана правилно\n".format(self.word),reset)
-            print(self.forms)
+            print(self.forms.rstrip())
 
             if self.is_details:
                 print(yellow)
-                print("\n[-] Синоними:\n",reset)
+                print("\n[-] Синоними:\n",cyan)
                 print(self.synonyms)
                 print(yellow)
                 print("[*] Tълковен речник:\n",reset)
                 print(self.meaning)
                 print(yellow)
-                print("[+] Превод: \n\n",reset)
+                print("[+] Превод:\n",reset)
                 print(self.translated)
         else:
             print(red,"[!!]")
