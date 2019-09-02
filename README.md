@@ -40,7 +40,7 @@ chmod +x spellcheck.py
 
 **python3 spellcheck.py -d -i [word]**
 
-- **-d- -details [optional]** Display synonyms examples and meaning. 
+- **-d --details [optional]** Display synonyms examples and meaning. 
 - **-i --input [required]** Word to spellcheck. ( *The script will detect the input language ! )*
 
 **The color schema is suitable under dark background color.**
@@ -76,6 +76,5 @@ chmod +x spellcheck.py
 #### TODO
 
 - Bulgarian README.md
-- More language support
-- Add local database and save every search
+- Add local database
 - Unit tests
