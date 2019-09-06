@@ -26,7 +26,8 @@ class English:
         self.forms = ""
         self.is_correct = bool
         self.set_atributes()
-        self.set_synonyms()
+        if self.is_details:
+            self.set_synonyms()
 
 
 
@@ -152,15 +153,14 @@ class English:
             if self.forms:
                 print(red, "({})".format(self.forms))
 
-            # check if we have syns
-            if not self.synonyms == ", ":
-                print(yellow)
-                print("[*] Synonyms:")
-                print(cyan)
-                print(self.synonyms)
 
             if self.is_details:
-
+            # check if we have syns
+                if not self.synonyms == ", ":
+                    print(yellow)
+                    print("[*] Synonyms:")
+                    print(cyan)
+                    print(self.synonyms)                
                 if self.meaning:
                     print(yellow,"\n[*] Meaning:\n",reset)
                     print(self.meaning)
