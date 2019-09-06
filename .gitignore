@@ -6,7 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# Local folder ignores
 bg-en-spellcheck/
+en2bg4term/
 
 # Distribution / packaging
 .Python
