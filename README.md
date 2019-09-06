@@ -1,30 +1,31 @@
-# **grammatical-snake** :snake: :mortar_board:
+#  :mortar_board: :snake: **grammatical-snake** :snake: :mortar_board:
 
-Grammatical-snake is a simple terminal dictionary and spellcheck script with advanced futures for cool people. Priority over the browser dictionaries is the speed and simplicity. The main achievement is to return the scrapped information as precise and readable as possible. As the project grows, the idea behind is to add more complex features like local database, text analysis, grammar-mode in which the user can search for a specific grammar rule by a given query. IT terminology dictionary in separated mode with explanations translate is coming soon. Maybe a fancy GUI with a better experience for non-terminal-like people. So far supported languages are Bulgarian, and English.
+Grammatical-snake is a simple terminal dictionary and spellcheck script with advanced futures for cool people. Priority over the browser dictionaries is the speed and simplicity. **The main achievement is to return the scrapped information as precise and readable as possible.** As the project grows, the idea behind is to add more complex features like local database, text analysis, grammar-mode in which the user can search for a specific grammar rule by a given query. IT terminology dictionary in separated mode with explanations translate is coming soon. Maybe a fancy GUI with a better experience for non-terminal-like people. So far supported languages are Bulgarian, and English.
 
-### POWERED BY
+## **POWERED BY**
 :point_down:  
 [Rechnik.info](http://rechnik.info) [Collinsdict](https://www.collinsdictionary.com)  
 [Slovored](https://slovored.com/)  [Lexico](https://www.lexico.com)    
 [Yourdict](https://sentence.yourdictionary.com)  [Dict.org](http://www.dict.org)
 
 
-### FEATURES
+## **FEATURES**
 
-- :white_check_mark: Spellcheck, Word Forms
-- :closed_book: Word meaning, Sentence usage(example)
-- :blue_book: Synonyms, Translate
-- :fast_forward: Faster than browser dictionaries, no java-script, ads, cookies alert-dialogs or whatever you can imagine.
-- :black_square_button: Terminal simplicity, Highlighted structured output.
+- **:white_check_mark:** Spellcheck, Word Forms
+- **:closed_book:** Word meaning, Sentence usage(example)
+- **:blue_book:** Synonyms, Translate
+- **:fast_forward:** Faster than browser dictionaries, no java-script, ads, cookies alert-dialogs or whatever you can imagine.
+- **:black_square_button:** Terminal simplicity, Highlighted structured output.
 
-#### INSTALL
+### **INSTALL**
 
-### **Requirements**
+#### Requirements
 
+- Internet Connection
 - Python3
 - beautifulsoup4
 - html5lib
-- **Terminal-Nature** :alien:
+- **Terminal-Nature :alien:**
 
 **The script require only 2 packages but it's good practice to create separate virtual environment. You can mess your existing versions if any!**
 
@@ -32,6 +33,7 @@ Grammatical-snake is a simple terminal dictionary and spellcheck script with adv
 ```
 git clone https://github.com/ihatemodels/grammatical-snake
 pip install -r requirements.txt
+Terminal emulator IF possible (Terminus, Windows Terminal(new), Moba X Term, etc.)
 ```
 - **Linux**
 ```
@@ -41,7 +43,7 @@ pip3 install -r requirements.txt
 chmod +x spellcheck.py  
 ```
 
-## USAGE
+## **USAGE**
 
 **spellcheck.py [-h] --input -i [word] --details -d**
 
@@ -60,7 +62,7 @@ optional arguments:
                         when available.**  
 
 ```
-### Bugs Hugs & Drugs  
+### *BUGS* hugs & **Drugs**  
 
 **The Bulgarian translated graph is looking ugly. TODO: Re-Construct**   
 **The color schema is suitable under dark background color only.**  
@@ -71,7 +73,7 @@ Terminus.**
 is required in order to display the colors**
 **See more on: [StackOverflow](https://stackoverflow.com/questions/51680709/colored-text-output-in-powershell-console-using-ansi-vt100-codes)**
 
-## IDEAS FOR LAZY DAYS :smoking:
+### IDEAS FOR LAZY DAYS :smoking:
 
 - **1.(FIRST)** Add IT terminology dictionary from **[stelf/en2bg4term](https://github.com/stelf/en2bg4term)** as local (files/db.)
 - **Bulgarian README.md**
@@ -82,8 +84,8 @@ is required in order to display the colors**
 - **True mode** a.k.a waiting for another word without exiting the script
 - Unit tests
 
-#### SHOWTIME
-- **count the second** :one: :two:
+## **SHOWTIME**
+- **count the second after execution** :one: :two:
 
 <div>
 <img src="/img/mixed.gif"
