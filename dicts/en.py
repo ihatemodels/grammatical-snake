@@ -4,6 +4,15 @@ import html5lib
 
 
 class English:
+    ''' A class for validating and extending
+    english words. The main goal of the project
+    is to present the scrapped information as clear and
+    readable as possible. As the project grows
+    the idea behind is to add more complex features like
+    localdatabase, text-analyse, grammar-mode in which
+    the user can search for a specific grammar rule by
+    given query.'''
+
     def __init__(self, word, details):
 
         self.word = word
@@ -19,9 +28,14 @@ class English:
         self.set_atributes()
         self.set_synonyms()
 
-    """ Main logic in this method  """
+
 
     def set_atributes(self):
+        ''' Main logic in this complex method. The method
+        will check which arguments are passed by the user
+        and will follow the logic. Undesirable information
+        will not be scrapped or saved.High working speed and
+        memory effcient scripts are always good.'''
 
         spellcheck = requests.get("https://www.lexico.com/en/definition/" + self.word)
         spellcheck = BeautifulSoup(spellcheck.content, "html.parser")
@@ -91,10 +105,10 @@ class English:
                 except:
                     pass
 
-    ################################################
-
     def set_synonyms(self):
-
+         ''' Set the synonyms and write 5 words per line 
+         for better looking output'''
+            
         syns = requests.get("https://www.lexico.com/en/synonym/" + self.word)
         syns = BeautifulSoup(syns.content, "html.parser").find_all(class_="syn")
 
@@ -114,12 +128,12 @@ class English:
             if pos > 19:
                 break
 
-        ##################################################
-
-        """ Check which arguments are passed and
-       display the variables in human readable format  """
 
     def display(self):
+
+        '''Check and validate the values from the
+           first methods. Display the information
+           in colorized human readable format. '''
 
         """ initializing color variables """
 
@@ -145,7 +159,7 @@ class English:
                 print(self.synonyms)
 
             if self.is_details:
-                
+
                 if self.meaning:
                     print(yellow,"\n[*] Meaning:\n",reset)
                     print(self.meaning)
@@ -161,9 +175,10 @@ class English:
                 print(yellow, "\n[--] Did you mean:", reset)
                 print(cyan, self.similars, reset)
 
-    ##########################################################
 
-    """ methods to return back the scraped values"""
+        ''' Methods to return back the scraped values.
+            This is for later when the database
+            idea becomes reality'''
 
     def get_similars(self):
 
