@@ -106,8 +106,9 @@ class English:
                     pass
 
     def set_synonyms(self):
-         ''' Set the synonyms and write 5 words per line 
-         for better looking output'''
+         
+        ''' Set the synonyms and write 5 words per line 
+            for better looking output'''
             
         syns = requests.get("https://www.lexico.com/en/synonym/" + self.word)
         syns = BeautifulSoup(syns.content, "html.parser").find_all(class_="syn")
