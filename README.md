@@ -1,12 +1,14 @@
 #  :mortar_board: :snake: **grammatical-snake** :snake: :mortar_board:
 
-Grammatical-snake is a simple terminal dictionary and spellcheck script with advanced futures for cool people. Priority over the browser dictionaries is the speed and simplicity. **The main achievement is to return the scrapped information as precise and readable as possible.** As the project grows, the idea behind is to add more complex features like local database, text analysis, grammar-mode in which the user can search for a specific grammar rule by a given query. IT terminology dictionary in separated mode with explanations translate is coming soon. Maybe a fancy GUI with a better experience for non-terminal-like people. So far supported languages are Bulgarian, and English.
+Grammatical-snake is a simple terminal dictionary and spellcheck script with advanced futures for cool people. Two main priorities over browser dictionaries: Speed and Simplicity. **The main achievement is to return the scrapped information as precise and readable as possible.** As the project grows, the idea behind is to add more complex features like local database, text analysis, grammar-mode in which the user can search for a specific grammar rule by a given query. IT [ *Terms* ] in separated mode with explanations and translate will be added soon. At the end it could be fancy GUI with a better experience for non-terminal-like people. Who knows? So far supported languages are Bulgarian, and English. * *working on the concept of more*
 
 ## **POWERED BY**
-:point_down:  
-[Rechnik.info](http://rechnik.info) [Collinsdict](https://www.collinsdictionary.com)  
-[Slovored](https://slovored.com/)  [Lexico](https://www.lexico.com)    
-[Yourdict](https://sentence.yourdictionary.com)  [Dict.org](http://www.dict.org)
+
+**:point_down: ** 
+
+**[Rechnik.info](http://rechnik.info) [Collinsdict](https://www.collinsdictionary.com)**
+**[Slovored](https://slovored.com/)  [Lexico](https://www.lexico.com)**    
+**[Yourdict](https://sentence.yourdictionary.com)  [Dict.org](http://www.dict.org)**
 
 
 ## **FEATURES**
@@ -64,13 +66,10 @@ optional arguments:
 ```
 ### *BUGS* hugs & **Drugs**  
 
-**The Bulgarian translated graph is looking ugly. TODO: Re-Construct**   
-**The color schema is suitable under dark background color only.**  
+**The Bulgarian translated graph is looking ugly. TODO: Re-Construct** **The color schema is suitable under dark background color only.**  
 **For windows users it's recommended to use terminal emulator like  
-Terminus.**
-**The new Windows Terminal must be fine as well, otherwise  
- powershell tweak
-is required in order to display the colors**
+Terminus, Windows Terminal, Moba X Term, etc., otherwise powershell tweak is required in order to display the colors**
+
 **See more on: [StackOverflow](https://stackoverflow.com/questions/51680709/colored-text-output-in-powershell-console-using-ansi-vt100-codes)**
 
 ### IDEAS FOR LAZY DAYS :smoking:
@@ -85,7 +84,7 @@ is required in order to display the colors**
 - Unit tests
 
 ## **SHOWTIME**
-- **count the second after execution** :one: :two:
+- **count the second(s) after execution** :one: :two:
 
 <div>
 <img src="/img/mixed.gif"
