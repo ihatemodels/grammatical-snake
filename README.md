@@ -115,7 +115,7 @@ optional arguments:
 **:three: :four:**
 
 <div>
-<img src="/img/term-en-wrong.gif"
+<img src="/img/powershell-grammatical.gif"
  alt="terminus"
  />
 </div>
