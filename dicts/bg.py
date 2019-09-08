@@ -1,5 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
+import termcolor
+import colorama
+from colorama import init
+from termcolor import cprint
+
 
 class Bulgarian:
     ''' A class for validating and extending
@@ -27,7 +32,6 @@ class Bulgarian:
             self.set_meaning_syns()
 
     def set_spellcheck(self):
-
         ''' spellcheck the word set the is_correct and
         fill the self.forms '''
 
@@ -46,21 +50,22 @@ class Bulgarian:
             self.forms = spellcheck.find("pre").get_text()
 
     def set_meaning_syns(self):
-
         ''' setting the meaning, synonyms and
             the tranlasted form if there is no
             meaning or syns the variables will be empty '''
 
         data = requests.get("http://rechnik.info/" + self.word)
-        mistake = BeautifulSoup(data.content, "html.parser").find(class_="word_no_desc")
+        mistake = BeautifulSoup(data.content, "html.parser").find(
+            class_="word_no_desc")
         headers = BeautifulSoup(data.content, "html.parser").find_all(
             class_="word_description_label"
         )
-        data = BeautifulSoup(data.content, "html.parser").find_all(class_="defbox")
+        data = BeautifulSoup(
+            data.content, "html.parser").find_all(class_="defbox")
 
         if not mistake:
 
-            for header,element in zip(headers,data):
+            for header, element in zip(headers, data):
                 if "Тълковен речник" in header.get_text():
                     self.meaning = element.get_text()
                 if "Синонимен речник" in header.get_text():
@@ -71,39 +76,35 @@ class Bulgarian:
             pass
 
     def display(self):
-
         ''' Check which arguments are passed and
             display the variables in human readable
             format  '''
 
-        ''' initializing color variables '''
+        ''' Initializing colorama to fix the 
+        windows color scheme problems.'''
 
-        reset = "\033[0m"
-        yellow = "\033[93m"
-        red = "\033[91m"
-        cyan = "\033[36m"
+        colorama.init()
 
         if self.is_correct:
-            print(yellow)
-            print("[**] Думата '{}' е написана правилно\n".format(self.word),reset)
+
+            cprint("\n[**] Думата '{}' е написана правилно\n".format(self.word),
+                   'green', attrs=['bold'])
             print(self.forms.rstrip())
 
             if self.is_details:
                 if self.synonyms:
-                    print(yellow)
-                    print("\n[-] Синоними:\n",cyan)
-                    print(self.synonyms)
+                    cprint("\n[-] Синоними:\n", 'yellow', attrs=['bold'])
+                    cprint(self.synonyms, 'red', attrs=['bold'])
                 if self.meaning:
-                    print(yellow)
-                    print("[*] Tълковен речник:\n",reset)
+                    cprint("\n[*] Tълковен речник:\n",
+                           'yellow', attrs=['bold'])
                     print(self.meaning)
                 if self.translated:
-                    print(yellow)
-                    print("[+] Превод:\n",reset)
+                    cprint("\n[+] Превод:\n", 'yellow', attrs=['bold'])
                     print(self.translated)
         else:
-            print(red,"[!!]")
-            print(yellow,self.error,reset)
+            cprint("[!!] {} [!!]".format(self.word), 'red', attrs=['bold'])
+            cprint(self.error, 'yellow')
 
     ''' Methods to return back the scraped values.
         This is for later when the database
@@ -125,3 +126,6 @@ class Bulgarian:
 
         return self.translated
 
+    def get_error(self):
+
+        return self.error

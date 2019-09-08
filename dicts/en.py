@@ -1,6 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
 import html5lib
+import termcolor
+import colorama
+from colorama import init
+from termcolor import cprint
 
 
 class English:
@@ -29,8 +33,6 @@ class English:
         if self.is_details:
             self.set_synonyms()
 
-
-
     def set_atributes(self):
         ''' Main logic in this complex method. The method
         will check which arguments are passed by the user
@@ -38,7 +40,8 @@ class English:
         will not be scrapped or saved.High working speed and
         memory effcient scripts are always good.'''
 
-        spellcheck = requests.get("https://www.lexico.com/en/definition/" + self.word)
+        spellcheck = requests.get(
+            "https://www.lexico.com/en/definition/" + self.word)
         spellcheck = BeautifulSoup(spellcheck.content, "html.parser")
         self.error = spellcheck.find(class_="searchHeading")
 
@@ -78,7 +81,7 @@ class English:
                         "https://sentence.yourdictionary.com/" + self.word
                     )
                     sentences = BeautifulSoup(sentences.content, "html.parser"
-                    ).find_all(class_="sentence component")[0:3]
+                                              ).find_all(class_="sentence component")[0:3]
 
                     if self.is_details:
                         for sentence in sentences:
@@ -107,12 +110,12 @@ class English:
                     pass
 
     def set_synonyms(self):
-         
         ''' Set the synonyms and write 5 words per line 
             for better looking output'''
-            
+
         syns = requests.get("https://www.lexico.com/en/synonym/" + self.word)
-        syns = BeautifulSoup(syns.content, "html.parser").find_all(class_="syn")
+        syns = BeautifulSoup(
+            syns.content, "html.parser").find_all(class_="syn")
 
         synonyms = ""
 
@@ -130,52 +133,45 @@ class English:
             if pos > 19:
                 break
 
-
     def display(self):
-
         '''Check and validate the values from the
            first methods. Display the information
            in colorized human readable format. '''
 
-        """ initializing color variables """
+        ''' Initializing colorama to fix the 
+        windows color scheme problems.'''
 
-        reset = "\033[0m"
-        yellow = "\033[93m"
-        red = "\033[91m"
-        cyan = "\033[36m"
+        colorama.init()
 
         if self.is_correct:
-            print(
-                yellow,
-                "\n[-{} ] [*{}]".format(self.word, self.word_type),
-                reset + " is spelled correctly",
-            )
-            if self.forms:
-                print(red, "({})".format(self.forms))
+            cprint("\n[-{} ] [*{}] is spelled correctly\n".format(self.word,
+                                                                  self.word_type), 'green', attrs=['bold'])
 
+            if self.forms:
+                cprint("  --Forms: ({})*\n".format(self.forms),
+                       'red', attrs=['bold'])
 
             if self.is_details:
-            # check if we have syns
+                # check if we have syns
                 if not self.synonyms == ", ":
-                    print(yellow)
-                    print("[*] Synonyms:")
-                    print(cyan)
-                    print(self.synonyms)                
+                    cprint("[*] Synonyms:\n", 'yellow', attrs=['bold'])
+                    cprint(self.synonyms, 'cyan', attrs=['bold'])
                 if self.meaning:
-                    print(yellow,"\n[*] Meaning:\n",reset)
+                    cprint("\n[*] Meaning:\n", 'yellow', attrs=['bold'])
                     print(self.meaning)
 
                 if self.sentences:
-                    print(yellow)
-                    print("[-] Example sentens:\n", reset)
+
+                    cprint("\n[-] Example sentens:\n",
+                           'yellow', attrs=['bold'])
                     print(self.sentences)
 
         else:
-            print(red, "\n[**]", yellow, self.error.get_text(), reset)
+            cprint("\n[!!] {}".format(self.error.get_text()),
+                   'red', attrs=['bold'])
             if self.similars:
-                print(yellow, "\n[--] Did you mean:", reset)
-                print(cyan, self.similars, reset)
-
+                cprint("\n[--] Did you mean:", 'green', attrs=['bold'])
+                cprint(self.similars, 'yellow', attrs=['bold'])
 
         ''' Methods to return back the scraped values.
             This is for later when the database

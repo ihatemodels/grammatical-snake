@@ -1,6 +1,6 @@
 #  :mortar_board: :snake: **grammatical-snake** :snake: :mortar_board:
 
-Grammatical-snake is a simple terminal dictionary and spellcheck script with advanced futures for cool people. Two main priorities over browser dictionaries: Speed and Simplicity. **The main achievement is to return the scrapped information as precise and readable as possible.** As the project grows, the idea behind is to add more complex features like local database, text analysis, grammar-mode in which the user can search for a specific grammar rule by a given query. IT-Terms in separated mode with explanations, examples and translates will be added soon. At the end it could be fancy GUI with a better experience for non-terminal-like people. Who knows ?    
+Grammatical-snake is a simple terminal dictionary and spellcheck script with advanced features. Two main priorities over browser dictionaries: Speed and Simplicity. **The main achievement is to return the scrapped information as precise and readable as possible.** As the project grows, the idea behind is to add more complex features like, terms dictionary, text analysis, grammar-mode in which the user can search for a specific grammar rule by a given query. IT-Terms in separated mode with explanations, examples and translates will be added soon. At the end it could be fancy GUI with a better experience for non-terminal-like people. Who knows ?    
 
 #### So far supported languages are **Bulgarian** & English.
 
@@ -8,7 +8,7 @@ Grammatical-snake is a simple terminal dictionary and spellcheck script with adv
 
 ## **POWERED BY**
 
-**:point_down:** 
+**:point_down:**
 
 **[Rechnik.info](http://rechnik.info) [Collinsdict](https://www.collinsdictionary.com)**  
 **[Slovored](https://slovored.com/)  [Lexico](https://www.lexico.com)**      
@@ -20,36 +20,37 @@ Grammatical-snake is a simple terminal dictionary and spellcheck script with adv
 - **:white_check_mark:** Spellcheck, Word Forms
 - **:closed_book:** Word meaning, Sentence usage(example)
 - **:blue_book:** Synonyms, Translate
-- **:fast_forward:** Faster than browser dictionaries, no java-script, ads, cookies alert-dialogs or whatever you can imagine.
+- **:fast_forward:** Faster than browser dictionaries, no JavaScript, ads, cookies alert-dialogs or whatever you can imagine.
 - **:black_square_button:** Terminal simplicity, Highlighted structured output.
 
 ### **INSTALL**
 
 #### Requirements
 
-- Internet Connection
 - Python3
-- beautifulsoup4
-- html5lib
+> - beautifulsoup4  
+> - html5lib
 - **Terminal-Nature :alien:**
 
-**The script require only 2 packages but it's good practice to create separate virtual environment. You can mess your existing versions if any!**
+**It's good practice to create separate virtual environment. You can mess your packages versions!**  
+*Under windows it's better to use terminal emulator like Terminus,Moba X Term, etc..*
 
 - **Windows**
 ```
 git clone https://github.com/ihatemodels/grammatical-snake
 pip install -r requirements.txt
-Terminal emulator IF possible (Terminus, Windows Terminal(new one), Moba X Term, etc.)
 ```
 - **Linux**
 ```
 git clone https://github.com/ihatemodels/grammatical-snake
-cd bg-en-spellcheck
+cd grammatical-snake/
 pip3 install -r requirements.txt
 chmod +x spellcheck.py  
 ```
 
 ## **USAGE**
+
+[USAGE.md](/img/USAGE.md)  
 
 **spellcheck.py [-h] --input -i [word] --details -d**
 
@@ -65,11 +66,11 @@ optional arguments:
 
   --details, -d         Pass to display definition, examples,  
                         synonyms, translate (BG to EN only atm.)  
-                        when available.**  
+                        when available.  
 
 ```
 
-### *BUGS* hugs & **Drugs**  
+### *BUGS* & **HUGS**  
 
 **The Bulgarian translated graph is looking ugly.**  
 
@@ -77,13 +78,18 @@ optional arguments:
 
 **The color schema is suitable under dark background color only.**   
 
-> TODO: Add python package for managing colors  
+> DONE: Add python package for managing colors   
+> TODO: Add config file to choose between dark or white background color schema.
 
-**For windows users it's recommended to use terminal emulator:**  
+**For windows users it's recommended to use terminal emulator because of:**
 
-> Terminus, Windows Terminal, Moba X Term, etc., otherwise powershell tweak is required in order to display the colors  
-
-**See more on: [StackOverflow](https://stackoverflow.com/questions/51680709/colored-text-output-in-powershell-console-using-ansi-vt100-codes)**
+- [x] Now PowerShell coloring is working fine.    
+- [ ] PowerShell cyrillic:  
+> Add this line to your PowerShell profile to set the right encoding for Input and Output streams.   
+> ```$OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding```   
+> (By default the Output is working fine, but the input is not. I.E: You will not see what you type when using cyrillic.)     
+> **See more on: [StackOverflow](https://stackoverflow.com/questions/39087491/powershell-replace-in-cyrillic-string)**
+- [x] PowerShell is ready now!
 
 ### IDEAS FOR LAZY DAYS :smoking:
 
@@ -93,29 +99,23 @@ optional arguments:
 - Add local database
 - **Grammar mode** with menu and search mode (searchquery=='grammar-rule')
 - ~~Output the search to csv~~
-- **True mode:** 
-> in other words: waiting for the next input(word) without exiting the script and save all searchs from current session
+- **True mode:**
+> I.E.: waiting for the next input(word) without exiting the script and save all searches from current session
 - Unit tests
 
 ## **SHOWTIME**
-- **count the second~~sss~~ after execution :one: :two:**
+- **Execute and count the second~~sss~~ :one: :two:**
 
 <div>
-<img src="/img/mixed.gif"
- alt="mixed"
+<img src="/img/powershell-go-gramoten.gif"
+ alt="powershell"
  />
 </div>  
 
-:three: :four:
+**:three: :four:**
 
 <div>
-<img src="/img/gif-bg.gif"
- alt="gif-bg"
- />
-</div>
-
-<div>
-<img src="/img/gif-en.gif"
- alt="gif-en"
+<img src="/img/terminus-grammatical.gif"
+ alt="terminus"
  />
 </div>
