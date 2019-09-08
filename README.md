@@ -107,7 +107,7 @@ optional arguments:
 - **Execute and count the second~~sss~~ :one: :two:**
 
 <div>
-<img src="/img/powershell-go-gramoten.gif"
+<img src="/img/powershell-gо-gramoten.gif"
  alt="powershell"
  />
 </div>  
