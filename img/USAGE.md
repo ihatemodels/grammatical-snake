@@ -2,7 +2,7 @@
 
 
 <div>
-<img src="powershell-go-gramoten.gif"
+<img src="ihatemodels/grammatical-snake/img/powershell-go-gramoten.gif"
  alt="ps-mixed"
  />
 </div>  
