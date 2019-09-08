@@ -2,7 +2,7 @@
 
 
 <div>
-<img src="./powershell-go-gramoten.gif"
+<img src="./powershell-gо-gramoten.gif"
  alt="ps-mixed"
  />
 </div>  
