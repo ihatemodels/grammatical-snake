@@ -115,7 +115,7 @@ optional arguments:
 **:three: :four:**
 
 <div>
-<img src="/img/terminus-grammatical.gif"
+<img src="/img/term-en-wrong.gif"
  alt="terminus"
  />
 </div>
