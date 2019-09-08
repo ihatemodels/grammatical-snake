@@ -8,7 +8,7 @@
 </div>  
 
 <div>
-<img src="/powershell-grammatical.gif"
+<img src="./powershell-grammatical.gif"
  alt="ps-en"
  />
 </div>  
