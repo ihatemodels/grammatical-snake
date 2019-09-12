@@ -30,6 +30,8 @@ Grammatical-snake is a simple terminal dictionary and spellcheck script with adv
 - Python3
 > - beautifulsoup4  
 > - html5lib
+> - colorama
+> - termcolor
 - **Terminal-Nature :alien:**
 
 **It's good practice to create separate virtual environment. You can mess your packages versions!**  
