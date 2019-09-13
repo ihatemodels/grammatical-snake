@@ -8,6 +8,12 @@
 </div>  
 
 <div>
+<img src="./book-mode.gif"
+ alt="book-mode"
+ />
+</div>  
+
+<div>
 <img src="./powershell-grammatical.gif"
  alt="ps-en"
  />

@@ -94,7 +94,7 @@ class Bulgarian:
             if self.is_details:
                 if self.synonyms:
                     cprint("\n[-] Синоними:\n", 'yellow', attrs=['bold'])
-                    cprint(self.synonyms, 'red', attrs=['bold'])
+                    cprint(self.synonyms, 'cyan', attrs=['bold'])
                 if self.meaning:
                     cprint("\n[*] Tълковен речник:\n",
                            'yellow', attrs=['bold'])

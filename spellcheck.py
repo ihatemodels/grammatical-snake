@@ -29,6 +29,8 @@ def main():
         Version: {}'''.format(__credits__,__author__,__version__)),
         formatter_class=RawTextHelpFormatter)
 
+    subparsers = parser.add_subparsers(dest='sub')
+
     parser.add_argument(
         '--input',
         '-i',
@@ -54,20 +56,58 @@ def main():
 
         '''))
 
+    book = subparsers.add_parser(
+        'book',
+        formatter_class=RawTextHelpFormatter,
+        help=textwrap.dedent('''\
+        Pass to enter book mode.I.E: Spellcheck without exiting
+        the script. Like reading a dictionary book. Choose 9 to
+        exit. Pass -d for details or leave empty for spellcheck 
+        and forms only.'''))
+
+
+    book.add_argument(
+        '--details',
+        '-d',
+        dest='e_details',
+        action='store_true',
+        help=textwrap.dedent('''\
+            
+        Pass to display definition, examples,
+        synonyms, translate (BG to EN only atm)
+        when available.
+
+        '''))
+
     args=parser.parse_args()
-    word = args.word
-    details = args.details
 
-    if not word:
-        print('Please specify a word')
-        exit()
+    if not args.sub:
 
-    if is_cyrillic(word):
-        new_word = Bulgarian(word,details)
-        new_word.display()
+        if not args.word:
+            print('Please specify a word')
+            exit()
+
+        if is_cyrillic(args.word):
+            new_word = Bulgarian(args.word,args.details)
+            new_word.display()
+        else:
+            new_word = English(args.word,args.details)
+            new_word.display()
     else:
-        new_word = English(word,details)
-        new_word.display()
+
+        while True:
+            word = input('Please specify a word:\n')
+            if word == '9':
+                exit()
+            else:
+                if is_cyrillic(word):
+                    new_word = Bulgarian(word,args.e_details)
+                    new_word.display()
+                else:
+                    new_word = English(word,args.e_details)
+                    new_word.display()    
+            
+
 
 if __name__ == "__main__":
     main()

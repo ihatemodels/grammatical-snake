@@ -48,8 +48,11 @@ class English:
         if self.error:
 
             self.is_correct = False
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 1011_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+
             similars = requests.get(
-                "https://www.collinsdictionary.com/spellcheck/english?q=" + self.word
+                "https://www.collinsdictionary.com/spellcheck/english?q=" + self.word, headers=headers
             )
             similars = BeautifulSoup(similars.content, "html.parser").find(
                 class_="columns2"

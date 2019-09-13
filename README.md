@@ -52,10 +52,20 @@ chmod +x spellcheck.py
 
 [USAGE.md](/img/USAGE.md)  
 
-**spellcheck.py [-h] --input -i [word] --details -d**
-
+**spellcheck.py [-h] --input -i [word] --details -d (optional)**  
+**spellcheck.py book [-h] --details -d (optional)**
 ```
 optional arguments:
+
+positional arguments:
+
+  {book}
+  
+    book                Pass to enter book mode.I.E: Spellcheck without exiting
+                        the script. Like reading dictionary book. Choose 9 to
+                        exit. Pass -d for details or leave empty for spellcheck
+                        and forms only.
+
   -h, --help            show this help message and exit
 
   --input WORD, -i WORD  
@@ -99,8 +109,8 @@ optional arguments:
 - Add local database
 - **Grammar mode** with menu and search mode (searchquery=='grammar-rule')
 - ~~Output the search to csv~~
-- **True mode:**
-> I.E.: waiting for the next input(word) without exiting the script and save all searches from current session
+- [x] **Book mode:**
+> [x] I.E.: waiting for the next input(word) without exiting the script and save all searches from current session
 - Unit tests
 
 ## **SHOWTIME**
@@ -119,3 +129,12 @@ optional arguments:
  alt="terminus"
  />
 </div>
+
+### **BOOK MODE**
+
+<div>
+<img src="/img/book-mode.gif"
+ alt="book-mode"
+ />
+</div>
+
