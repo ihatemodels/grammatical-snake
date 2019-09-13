@@ -62,11 +62,13 @@ optional arguments:
 positional arguments:
 
   {book}
-  
+
     book                Pass to enter book mode.I.E: Spellcheck without exiting
                         the script. Like reading dictionary book. Choose 9 to
                         exit. Pass -d for details or leave empty for spellcheck
                         and forms only.
+
+                        optional arguments: --details -d 
 
   -h, --help            show this help message and exit
 
