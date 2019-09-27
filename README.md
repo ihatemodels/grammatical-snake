@@ -17,7 +17,7 @@ Grammatical-snake is a simple terminal dictionary and spellcheck script with adv
 
 ## **FEATURES**
 
-- **:white_check_mark:** Spellcheck, Word Forms
+- **:white_check_mark:** Spellcheck, Word Forms, Transription
 - **:closed_book:** Word meaning, Sentence usage(example)
 - **:blue_book:** Synonyms, Translate
 - **:fast_forward:** Faster than browser dictionaries, no JavaScript, ads, cookies alert-dialogs or whatever you can imagine.
@@ -76,7 +76,8 @@ positional arguments:
                         [*] required  
                         Word in Bulgarian or in English(singular). The script will  
                         detect the input language. If the word is correct and exists  
-                        word forms will be returned. Else suggestions will be displayed.  
+                        word forms and transription will be returned. Else suggestions 
+                        will be displayed.  
 
   --details, -d         Pass to display definition, examples,  
                         synonyms, translate (BG to EN only atm.)  
