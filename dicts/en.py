@@ -1,8 +1,8 @@
-import requests
-from bs4 import BeautifulSoup
-import html5lib
-import termcolor
 import colorama
+import html5lib
+import requests
+import termcolor
+from bs4 import BeautifulSoup
 from colorama import init
 from termcolor import cprint
 
@@ -16,11 +16,15 @@ class English:
     localdatabase, text-analyse, grammar-mode in which
     the user can search for a specific grammar rule by
     given query.'''
-
     def __init__(self, word, details):
 
         self.word = word
         self.is_details = details
+        self.headers = {
+            'User-Agent':
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 1011_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
+        }
+
         self.error = ""  # fill if missspelled
         self.similars = ""
         self.sentences = ""
@@ -28,8 +32,10 @@ class English:
         self.meaning = ""
         self.word_type = ""
         self.forms = ""
+        self.transcription = ""
         self.is_correct = bool
         self.set_atributes()
+
         if self.is_details:
             self.set_synonyms()
 
@@ -40,23 +46,22 @@ class English:
         will not be scrapped or saved.High working speed and
         memory effcient scripts are always good.'''
 
-        spellcheck = requests.get(
-            "https://www.lexico.com/en/definition/" + self.word)
+        spellcheck = requests.get("https://www.lexico.com/en/definition/" +
+                                  self.word)
+
         spellcheck = BeautifulSoup(spellcheck.content, "html.parser")
         self.error = spellcheck.find(class_="searchHeading")
 
         if self.error:
 
             self.is_correct = False
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 1011_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
-
             similars = requests.get(
-                "https://www.collinsdictionary.com/spellcheck/english?q=" + self.word, headers=headers
-            )
-            similars = BeautifulSoup(similars.content, "html.parser").find(
-                class_="columns2"
-            )
+                "https://www.collinsdictionary.com/spellcheck/english?q=" +
+                self.word,
+                headers=self.headers)
+
+            similars = BeautifulSoup(similars.content,
+                                     "html.parser").find(class_="columns2")
 
             if similars:
                 self.similars = similars.get_text()
@@ -64,6 +69,21 @@ class English:
         else:
 
             w_type = spellcheck.find(class_="pos").get_text()
+
+            try:
+                transcription = requests.get(
+                    "https://www.collinsdictionary.com/dictionary/english/" +
+                    self.word,
+                    headers=self.headers)
+
+                self.transcription = BeautifulSoup(
+                    transcription.content, "html.parser").find(
+                        class_='pron type-').get_text().replace('\n', '')
+
+                del (transcription)
+            except:
+
+                self.transcription = None
 
             if "verb" == w_type[:4]:
                 self.word_type = "verb"
@@ -81,10 +101,10 @@ class English:
                 try:
 
                     sentences = requests.get(
-                        "https://sentence.yourdictionary.com/" + self.word
-                    )
-                    sentences = BeautifulSoup(sentences.content, "html.parser"
-                                              ).find_all(class_="sentence component")[0:3]
+                        "https://sentence.yourdictionary.com/" + self.word)
+                    sentences = BeautifulSoup(
+                        sentences.content, "html.parser").find_all(
+                            class_="sentence component")[0:3]
 
                     if self.is_details:
                         for sentence in sentences:
@@ -103,11 +123,9 @@ class English:
                             "Sumbit": "Sumbit=query",
                         },
                     )
-                    dict_org = (
-                        BeautifulSoup(dict_org.text, "html5lib")
-                        .find_all("pre")[2]
-                        .get_text()
-                    )
+                    dict_org = (BeautifulSoup(
+                        dict_org.text,
+                        "html5lib").find_all("pre")[2].get_text())
                     self.meaning = dict_org
                 except:
                     pass
@@ -117,8 +135,8 @@ class English:
             for better looking output'''
 
         syns = requests.get("https://www.lexico.com/en/synonym/" + self.word)
-        syns = BeautifulSoup(
-            syns.content, "html.parser").find_all(class_="syn")
+        syns = BeautifulSoup(syns.content,
+                             "html.parser").find_all(class_="syn")
 
         synonyms = ""
 
@@ -140,19 +158,28 @@ class English:
         '''Check and validate the values from the
            first methods. Display the information
            in colorized human readable format. '''
-
+        #-----------------------------------------#
         ''' Initializing colorama to fix the 
         windows color scheme problems.'''
 
         colorama.init()
 
         if self.is_correct:
-            cprint("\n[-{} ] [*{}] is spelled correctly\n".format(self.word,
-                                                                  self.word_type), 'green', attrs=['bold'])
+            cprint("\n[-{} ] [*{}] is spelled correctly\n".format(
+                self.word, self.word_type),
+                   'green',
+                   attrs=['bold'])
 
             if self.forms:
                 cprint("  --Forms: ({})*\n".format(self.forms),
-                       'red', attrs=['bold'])
+                       'red',
+                       attrs=['bold'])
+
+            if self.transcription:
+                cprint("        Transcription: [ {} ]*\n".format(
+                    self.transcription),
+                       'cyan',
+                       attrs=['bold'])
 
             if self.is_details:
                 # check if we have syns
@@ -166,22 +193,22 @@ class English:
                 if self.sentences:
 
                     cprint("\n[-] Example sentens:\n",
-                           'yellow', attrs=['bold'])
+                           'yellow',
+                           attrs=['bold'])
                     print(self.sentences)
 
         else:
             cprint("\n[!!] {}".format(self.error.get_text()),
-                   'red', attrs=['bold'])
+                   'red',
+                   attrs=['bold'])
             if self.similars:
                 cprint("\n[--] Did you mean:", 'green', attrs=['bold'])
                 cprint(self.similars, 'yellow', attrs=['bold'])
 
+    def get_similars(self):
         ''' Methods to return back the scraped values.
             This is for later when the database
             idea becomes reality'''
-
-    def get_similars(self):
-
         return self.similars
 
     def get_sentences(self):
@@ -203,3 +230,7 @@ class English:
     def get_forms(self):
 
         return self.forms
+
+    def get_transcription(self):
+
+        return self.transcription
