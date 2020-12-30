@@ -10,7 +10,7 @@ __author__ = 'Gergin Darakov'
 __version__ = 0.1
 __credits__ = 'Credits for all scrapped dictionaries in README'
 __status__ = 'Development'
-__license__ = 'GPL-3.0'
+__license__ = 'MIT'
 
 
 def main():
