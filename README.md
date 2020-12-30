@@ -1,6 +1,6 @@
 #  :mortar_board: :snake: **grammatical-snake** :snake: :mortar_board:
 
-Grammatical-snake is a simple terminal dictionary and spellcheck script with advanced features. Two main priorities over browser dictionaries: Speed and Simplicity. **The main achievement is to return the scrapped information as precise and readable as possible.** As the project grows, the idea behind is to add more complex features like, terms dictionary, text analysis, grammar-mode in which the user can search for a specific grammar rule by a given query. IT-Terms in separated mode with explanations, examples and translates will be added soon. At the end it could be fancy GUI with a better experience for non-terminal-like people. Who knows ?    
+Grammatical-snake is a simple terminal dictionary and spellcheck script with advanced features. Two main priorities over browser dictionaries: Speed and Simplicity. **The main achievement is to return the scrapped information as precise and readable as possible.**   
 
 #### So far supported languages are **Bulgarian** & English.
 
@@ -17,7 +17,7 @@ Grammatical-snake is a simple terminal dictionary and spellcheck script with adv
 
 ## **FEATURES**
 
-- **:white_check_mark:** Spellcheck, Word Forms, Transription
+- **:white_check_mark:** Spellcheck, Word Forms, Transcription
 - **:closed_book:** Word meaning, Sentence usage(example)
 - **:blue_book:** Synonyms, Translate
 - **:fast_forward:** Faster than browser dictionaries, no JavaScript, ads, cookies alert-dialogs or whatever you can imagine.
@@ -32,10 +32,8 @@ Grammatical-snake is a simple terminal dictionary and spellcheck script with adv
 > - html5lib
 > - colorama
 > - termcolor
-- **Terminal-Nature :alien:**
 
-**It's good practice to create separate virtual environment. You can mess your packages versions!**  
-*Under windows it's better to use terminal emulator like Terminus,Moba X Term, etc..*
+**It's good practice creating separate virtual environment.**  
 
 - **Windows**
 ```
@@ -108,15 +106,10 @@ positional arguments:
 
 ### IDEAS FOR LAZY DAYS :smoking:
 
-- **1.(FIRST)** Add IT terminology dictionary from **[stelf/en2bg4term](https://github.com/stelf/en2bg4term)** as local (files/db.)
-- **Bulgarian README.md**
+- Add IT terminology dictionary from **[stelf/en2bg4term](https://github.com/stelf/en2bg4term)**.
 - Add English to Bulgarian translate
 - Add local database
-- **Grammar mode** with menu and search mode (searchquery=='grammar-rule')
-- ~~Output the search to csv~~
-- [x] **Book mode:**
-> [x] I.E.: waiting for the next input(word) without exiting the script and save all searches from current session
-- Unit tests
+- **Grammar mode** with a menu and search mode (searchquery=='grammar-rule')
 
 ## **SHOWTIME**
 - **Execute and count the second~~sss~~ :one: :two:**
@@ -142,4 +135,3 @@ positional arguments:
  alt="book-mode"
  />
 </div>
-

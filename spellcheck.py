@@ -1,8 +1,10 @@
-import argparse,textwrap,re
+import argparse
+import re
+import textwrap
 from argparse import RawTextHelpFormatter
+
 from dicts.bg import Bulgarian
 from dicts.en import English
-
 
 __author__ = 'Gergin Darakov'
 __version__ = 0.1
@@ -13,20 +15,16 @@ __license__ = 'GPL-3.0'
 
 def main():
 
-    ''' The execution point of the script the --input argument
-       isn't set as required via argparse, cuz it will conflict
-       with other new args when the script becomes big  '''
-
-    def is_cyrillic(word):
-        '''Verify the input language '''
-        return bool(re.search("[а-яА-Я]", word))
+    def is_cyrillic(input):
+        """Verify the input language """
+        return bool(re.search("[а-яА-Я]", input))
 
     parser = argparse.ArgumentParser(
         description='Simple terminal dictionary with advanced features',
         epilog=textwrap.dedent('''
         {}
         Author: {}
-        Version: {}'''.format(__credits__,__author__,__version__)),
+        Version: {}'''.format(__credits__, __author__, __version__)),
         formatter_class=RawTextHelpFormatter)
 
     subparsers = parser.add_subparsers(dest='sub')
@@ -67,7 +65,6 @@ def main():
 
         optional arguments: --details -d'''))
 
-
     book.add_argument(
         '--details',
         '-d',
@@ -81,7 +78,7 @@ def main():
 
         '''))
 
-    args=parser.parse_args()
+    args = parser.parse_args()
 
     if not args.sub:
 
@@ -90,25 +87,23 @@ def main():
             exit()
 
         if is_cyrillic(args.word):
-            new_word = Bulgarian(args.word,args.details)
+            new_word = Bulgarian(args.word, args.details)
             new_word.display()
         else:
-            new_word = English(args.word,args.details)
+            new_word = English(args.word, args.details)
             new_word.display()
     else:
-
         while True:
             word = input('Please specify a word:\n')
             if word == '9':
                 exit()
             else:
                 if is_cyrillic(word):
-                    new_word = Bulgarian(word,args.e_details)
+                    new_word = Bulgarian(word, args.e_details)
                     new_word.display()
                 else:
-                    new_word = English(word,args.e_details)
-                    new_word.display()    
-            
+                    new_word = English(word, args.e_details)
+                    new_word.display()
 
 
 if __name__ == "__main__":

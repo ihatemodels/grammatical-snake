@@ -1,31 +1,30 @@
 import colorama
-import html5lib
 import requests
-import termcolor
 from bs4 import BeautifulSoup
-from colorama import init
 from termcolor import cprint
 
 
 class English:
-    ''' A class for validating and extending
+    """ A class for validating and extending
     english words. The main goal of the project
     is to present the scrapped information as clear and
     readable as possible. As the project grows
     the idea behind is to add more complex features like
     localdatabase, text-analyse, grammar-mode in which
     the user can search for a specific grammar rule by
-    given query.'''
+    given query."""
+
     def __init__(self, word, details):
 
         self.word = word
         self.is_details = details
         self.headers = {
             'User-Agent':
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 1011_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 1011_5) AppleWebKit/537.36 (KHTML, like Gecko) '
+            'Chrome/50.0.2661.102 Safari/537.36 '
         }
 
-        self.error = ""  # fill if missspelled
+        self.error = ""  # fill if misspelled
         self.similars = ""
         self.sentences = ""
         self.synonyms = ""
@@ -40,11 +39,11 @@ class English:
             self.set_synonyms()
 
     def set_atributes(self):
-        ''' Main logic in this complex method. The method
+        """ Main logic in this complex method. The method
         will check which arguments are passed by the user
         and will follow the logic. Undesirable information
         will not be scrapped or saved.High working speed and
-        memory effcient scripts are always good.'''
+        memory efficient scripts are always good."""
 
         spellcheck = requests.get("https://www.lexico.com/en/definition/" +
                                   self.word)
@@ -55,6 +54,7 @@ class English:
         if self.error:
 
             self.is_correct = False
+
             similars = requests.get(
                 "https://www.collinsdictionary.com/spellcheck/english?q=" +
                 self.word,
@@ -131,8 +131,8 @@ class English:
                     pass
 
     def set_synonyms(self):
-        ''' Set the synonyms and write 5 words per line 
-            for better looking output'''
+        """ Set the synonyms and write 5 words per line
+            for better looking output"""
 
         syns = requests.get("https://www.lexico.com/en/synonym/" + self.word)
         syns = BeautifulSoup(syns.content,
@@ -155,20 +155,17 @@ class English:
                 break
 
     def display(self):
-        '''Check and validate the values from the
+        """Check and validate the values from the
            first methods. Display the information
-           in colorized human readable format. '''
-        #-----------------------------------------#
-        ''' Initializing colorama to fix the 
-        windows color scheme problems.'''
+           in colorized human readable format."""
 
         colorama.init()
 
         if self.is_correct:
             cprint("\n[-{} ] [*{}] is spelled correctly\n".format(
                 self.word, self.word_type),
-                   'green',
-                   attrs=['bold'])
+                'green',
+                attrs=['bold'])
 
             if self.forms:
                 cprint("  --Forms: ({})*\n".format(self.forms),
@@ -178,11 +175,10 @@ class English:
             if self.transcription:
                 cprint("        Transcription: [ {} ]*\n".format(
                     self.transcription),
-                       'cyan',
-                       attrs=['bold'])
+                    'cyan',
+                    attrs=['bold'])
 
             if self.is_details:
-                # check if we have syns
                 if not self.synonyms == ", ":
                     cprint("[*] Synonyms:\n", 'yellow', attrs=['bold'])
                     cprint(self.synonyms, 'cyan', attrs=['bold'])
@@ -206,9 +202,6 @@ class English:
                 cprint(self.similars, 'yellow', attrs=['bold'])
 
     def get_similars(self):
-        ''' Methods to return back the scraped values.
-            This is for later when the database
-            idea becomes reality'''
         return self.similars
 
     def get_sentences(self):

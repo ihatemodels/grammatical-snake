@@ -1,22 +1,23 @@
+import colorama
 import requests
 from bs4 import BeautifulSoup
-import termcolor
-import colorama
-from colorama import init
 from termcolor import cprint
+
+from .exceptions import DictConnectionError
 
 
 class Bulgarian:
-    ''' A class for validating and extending
-    bulgarian words. The main goal of the project
-    is to present the scrapped information as clear and
-    readable as possible. As the project grows
-    the idea behind is to add more complex features like
-    localdatabase, text-analyse, grammar-mode in which
-    the user can search for a specific grammar rule by
-    given query.'''
+    """Bulgarian class, implement bulgarian words
+    spellcheck, synonyms and meaning interfaces.
 
-    def __init__(self, word, details):
+    Parameters:  
+        word (str) Word to check on.  
+
+        details (bool) If `True` word meaning, synonyms and english translate
+        will be set during the init if any. 
+    """
+
+    def __init__(self, word=None, details=None):
 
         self.word = word
         self.is_details = details
@@ -26,19 +27,29 @@ class Bulgarian:
         self.meaning = ""
         self.translated = ""
         self.is_correct = bool
-        self.set_spellcheck()
+
+        self.SPELL_CHECK_URL = "https://slovored.com/search/pravopisen-rechnik/"
+
+        self._set_spellcheck()
 
         if self.is_details:
-            self.set_meaning_syns()
+            self.DETAILS_URL = "http://rechnik.info/"
+            self.details_error = False
+            self._set_meaning_syns()
 
-    def set_spellcheck(self):
-        ''' spellcheck the word set the is_correct and
-        fill the self.forms '''
+    def _set_spellcheck(self):
+        """
+        Spellcheck the `self.word` 
 
-        spellcheck = requests.get(
-            "https://slovored.com/search/pravopisen-rechnik/" + self.word
-        )
-        spellcheck = BeautifulSoup(spellcheck.content, "html.parser")
+        Set `is_correct` and `forms` about the word
+        """
+
+        try:
+            r = requests.get(self.SPELL_CHECK_URL + self.word)
+        except requests.exceptions.RequestException as e:
+            raise DictConnectionError(e)
+
+        spellcheck = BeautifulSoup(r.content, "html.parser")
 
         try:
             error = spellcheck.find(class_="error")
@@ -49,19 +60,25 @@ class Bulgarian:
             self.is_correct = True
             self.forms = spellcheck.find("pre").get_text()
 
-    def set_meaning_syns(self):
-        ''' setting the meaning, synonyms and
-            the tranlasted form if there is no
-            meaning or syns the variables will be empty '''
+    def _set_meaning_syns(self):
+        """
+        Set `meaning`, `synonyms` and `translated` if any
+        """
 
-        data = requests.get("http://rechnik.info/" + self.word)
-        mistake = BeautifulSoup(data.content, "html.parser").find(
+        try:
+            r = requests.get(self.DETAILS_URL + self.word)
+        except requests.exceptions.RequestException:
+            self.details_error = True
+            return
+
+        mistake = BeautifulSoup(r.content, "html.parser").find(
             class_="word_no_desc")
-        headers = BeautifulSoup(data.content, "html.parser").find_all(
+        headers = BeautifulSoup(r.content, "html.parser").find_all(
             class_="word_description_label"
         )
+
         data = BeautifulSoup(
-            data.content, "html.parser").find_all(class_="defbox")
+            r.content, "html.parser").find_all(class_="defbox")
 
         if not mistake:
 
@@ -75,13 +92,10 @@ class Bulgarian:
         else:
             pass
 
-    def display(self):
-        ''' Check which arguments are passed and
-            display the variables in human readable
-            format  '''
-
-        ''' Initializing colorama to fix the 
-        windows color scheme problems.'''
+    def display(self, colored=None):
+        """
+        Display scraped output as colored human readable format
+        """
 
         colorama.init()
 
@@ -92,6 +106,11 @@ class Bulgarian:
             print(self.forms.rstrip())
 
             if self.is_details:
+                if self.details_error:
+                    cprint(f"\n[---] Connection Error: Details can not be set. No connection \
+                            can be established to {self.DETAILS_URL}",
+                           'red', attrs=['bold'])
+                    return
                 if self.synonyms:
                     cprint("\n[-] Синоними:\n", 'yellow', attrs=['bold'])
                     cprint(self.synonyms, 'cyan', attrs=['bold'])
@@ -105,10 +124,6 @@ class Bulgarian:
         else:
             cprint("[!!] {} [!!]".format(self.word), 'red', attrs=['bold'])
             cprint(self.error, 'yellow')
-
-    ''' Methods to return back the scraped values.
-        This is for later when the database
-        idea becomes reality '''
 
     def get_synonyms(self):
 
