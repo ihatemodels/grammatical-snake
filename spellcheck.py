@@ -2,29 +2,22 @@ import argparse
 import re
 import textwrap
 from argparse import RawTextHelpFormatter
-
 from dicts.bg import Bulgarian
 from dicts.en import English
+# from modules.database import Reader
 
 __author__ = 'Gergin Darakov'
 __version__ = 0.1
-__credits__ = 'Credits for all scrapped dictionaries in README'
+__credits__ = 'Credits for all scrapped dictionaries in README.md'
 __status__ = 'Development'
 __license__ = 'MIT'
 
 
 def main():
 
-    def is_cyrillic(input):
-        """Verify the input language """
-        return bool(re.search("[а-яА-Я]", input))
-
     parser = argparse.ArgumentParser(
         description='Simple terminal dictionary with advanced features',
-        epilog=textwrap.dedent('''
-        {}
-        Author: {}
-        Version: {}'''.format(__credits__, __author__, __version__)),
+        epilog=textwrap.dedent(f'''{__credits__}'''),
         formatter_class=RawTextHelpFormatter)
 
     subparsers = parser.add_subparsers(dest='sub')
@@ -63,7 +56,9 @@ def main():
         exit. Pass -d for details or leave empty for spellcheck 
         and forms only.
 
-        optional arguments: --details -d'''))
+        optional arguments: --help -h, --details -d
+        
+        '''))
 
     book.add_argument(
         '--details',
@@ -78,7 +73,28 @@ def main():
 
         '''))
 
+    grammar = subparsers.add_parser(
+        'grammar',
+        formatter_class=RawTextHelpFormatter,
+        help=textwrap.dedent('''\
+        Pass to enter grammar search mode. 
+        
+        arguments: --help -h, --query -q'''))
+
+    grammar.add_argument(
+        '--query',
+        '-q',
+        dest='query',
+        type=str,
+        help=textwrap.dedent('''\
+        [*] required
+        Grammar search query.'''))
+
     args = parser.parse_args()
+
+    def is_cyrillic(current_word):
+        """Verify the input language """
+        return bool(re.search("[а-яА-Я]", current_word))
 
     if not args.sub:
 
@@ -92,7 +108,13 @@ def main():
         else:
             new_word = English(args.word, args.details)
             new_word.display()
-    else:
+
+    if args.sub == "grammar":
+        # reader = Reader()
+        # test = reader.get_rule_by_id(3)
+        print("Coming soon")
+
+    if args.sub == "book":
         while True:
             word = input('Please specify a word:\n')
             if word == '9':

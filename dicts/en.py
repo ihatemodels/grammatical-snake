@@ -33,12 +33,12 @@ class English:
         self.forms = ""
         self.transcription = ""
         self.is_correct = bool
-        self.set_atributes()
+        self.set_attributes()
 
         if self.is_details:
             self.set_synonyms()
 
-    def set_atributes(self):
+    def set_attributes(self):
         """ Main logic in this complex method. The method
         will check which arguments are passed by the user
         and will follow the logic. Undesirable information
@@ -67,9 +67,7 @@ class English:
                 self.similars = similars.get_text()
 
         else:
-
             w_type = spellcheck.find(class_="pos").get_text()
-
             try:
                 transcription = requests.get(
                     "https://www.collinsdictionary.com/dictionary/english/" +
@@ -80,9 +78,8 @@ class English:
                     transcription.content, "html.parser").find(
                         class_='pron type-').get_text().replace('\n', '')
 
-                del (transcription)
+                del transcription
             except:
-
                 self.transcription = None
 
             if "verb" == w_type[:4]:

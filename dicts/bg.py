@@ -1,41 +1,42 @@
-import colorama
 import requests
 from bs4 import BeautifulSoup
-from termcolor import cprint
+from rich.text import Text
 
 from .exceptions import DictConnectionError
+from core.styler import Styler, console
 
 
-class Bulgarian:
+class Bulgarian(Styler):
     """Bulgarian class, implement bulgarian words
-    spellcheck, synonyms and meaning interfaces.
+    spellcheck, synonyms and meaning interfaces via
+    wep scrape.
 
-    Parameters:  
-        word (str) Word to check on.  
-
-        details (bool) If `True` word meaning, synonyms and english translate
-        will be set during the init if any. 
+    Args:
+        word (str): Word to check on.
+        details (Optional[bool], optional): Enable/disable synonyms, meaning and english translate.
     """
 
-    def __init__(self, word=None, details=None):
+    def __init__(self, word: str = None, details: bool = False):
 
         self.word = word
-        self.is_details = details
+        self.details = details
+        self.is_correct = bool
         self.error = ""
-        self.forms = ""
+        self.forms = []
+        self.header_elements = []
+        self.header = ""
         self.synonyms = ""
         self.meaning = ""
         self.translated = ""
-        self.is_correct = bool
 
         self.SPELL_CHECK_URL = "https://slovored.com/search/pravopisen-rechnik/"
 
         self._set_spellcheck()
 
-        if self.is_details:
+        if self.details:
             self.DETAILS_URL = "http://rechnik.info/"
             self.details_error = False
-            self._set_meaning_syns()
+            self._set_details()
 
     def _set_spellcheck(self):
         """
@@ -55,12 +56,20 @@ class Bulgarian:
             error = spellcheck.find(class_="error")
             self.is_correct = False
             self.error = error.get_text()
-            self.forms = spellcheck.find("pre").get_text()
         except:
             self.is_correct = True
-            self.forms = spellcheck.find("pre").get_text()
+            pre = spellcheck.find("pre").get_text().rstrip("\n").split("\n")
+            for element in pre:
+                if len(element) == 0:
+                    continue
+                elif element.startswith("   "):
+                    if len(self.forms) < 15:
+                        self.forms.append(str(element).lstrip())
+                else:
+                    self.header_elements.append(element)
+                    self.header = self.header + element + "\n"
 
-    def _set_meaning_syns(self):
+    def _set_details(self):
         """
         Set `meaning`, `synonyms` and `translated` if any
         """
@@ -81,7 +90,6 @@ class Bulgarian:
             r.content, "html.parser").find_all(class_="defbox")
 
         if not mistake:
-
             for header, element in zip(headers, data):
                 if "Тълковен речник" in header.get_text():
                     self.meaning = element.get_text()
@@ -89,58 +97,57 @@ class Bulgarian:
                     self.synonyms = element.get_text()
                 if "Българо-Английски речник" in header.get_text():
                     self.translated = element.get_text()
-        else:
-            pass
 
-    def display(self, colored=None):
+    def display(self):
         """
-        Display scraped output as colored human readable format
+        Display scraped output as human readable format.
         """
-
-        colorama.init()
 
         if self.is_correct:
 
-            cprint("\n[**] Думата '{}' е написана правилно\n".format(self.word),
-                   'green', attrs=['bold'])
-            print(self.forms.rstrip())
+            self.print(Text(self.header.rstrip('\n'), style="#00cc00", justify="left"))
 
-            if self.is_details:
+            if self.details:
+
                 if self.details_error:
-                    cprint(f"\n[---] Connection Error: Details can not be set. No connection \
-                            can be established to {self.DETAILS_URL}",
-                           'red', attrs=['bold'])
+                    # TODO: Add logging
+                    print(
+                        f"\n[---] Connection Error: Details can not be set. No connection \
+                          can be established to {self.DETAILS_URL}"
+                    )
                     return
-                if self.synonyms:
-                    cprint("\n[-] Синоними:\n", 'yellow', attrs=['bold'])
-                    cprint(self.synonyms, 'cyan', attrs=['bold'])
-                if self.meaning:
-                    cprint("\n[*] Tълковен речник:\n",
-                           'yellow', attrs=['bold'])
-                    print(self.meaning)
-                if self.translated:
-                    cprint("\n[+] Превод:\n", 'yellow', attrs=['bold'])
-                    print(self.translated)
-        else:
-            cprint("[!!] {} [!!]".format(self.word), 'red', attrs=['bold'])
-            cprint(self.error, 'yellow')
 
-    def get_synonyms(self):
+                if self.synonyms:
+                    console.print(f"\n+ Синоними\n+", style="bold yellow")
+                    self.print(Text(self.synonyms, style="#00cc00", justify="left"))
+
+                if self.meaning:
+                    console.print(f"\n+ Значение\n+", style="bold yellow")
+                    self.print(Text(self.meaning, style="#00cc00", justify="left"))
+
+                if self.translated:
+                    console.print(f"\n+ Превод \n+", style="bold yellow")
+                    self.print(Text(self.translated, style="#00cc00", justify="left"))
+        else:
+            console.print(Text(f"\n- - - - - - {self.word} \n-", style="bold red"))
+            console.print(Text(f"-{self.error}", style="bold yellow"))
+
+    def get_synonyms(self) -> str:
 
         return self.synonyms
 
-    def get_forms(self):
+    def get_forms(self) -> list:
 
-        return self.forms
+        return self.header_elements
 
-    def get_meaning(self):
+    def get_meaning(self) -> str:
 
         return self.meaning
 
-    def get_translate(self):
+    def get_translate(self) -> str:
 
         return self.translated
 
-    def get_error(self):
+    def get_error(self) -> str:
 
         return self.error

@@ -2,43 +2,43 @@
 
 
 <div>
-<img src="./powershell-gо-gramoten.gif"
+<img src="gifs/powershell-gо-gramoten.gif"
  alt="ps-mixed"
  />
 </div>  
 
 <div>
-<img src="./book-mode.gif"
+<img src="gifs/book-mode.gif"
  alt="book-mode"
  />
 </div>  
 
 <div>
-<img src="./powershell-grammatical.gif"
+<img src="gifs/powershell-grammatical.gif"
  alt="ps-en"
  />
 </div>  
 
 <div>
-<img src="./powershell-gramoten.gif"
+<img src="gifs/powershell-gramoten.gif"
  alt="ps-bg"
  />
 </div>  
 
 <div>
-<img src="./term-bg-wrong.gif"
+<img src="gifs/term-bg-wrong.gif"
  alt="term-bg"
  />
 </div>  
 
 <div>
-<img src="./term-en-wrong.gif"
+<img src="gifs/term-en-wrong.gif"
  alt="term-en"
  />
 </div>  
 
 <div>
-<img src="./terminus-grammatical.gif"
+<img src="gifs/terminus-grammatical.gif"
  alt="term-gr"
  />
 </div>  

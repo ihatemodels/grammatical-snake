@@ -50,7 +50,7 @@ chmod +x spellcheck.py
 
 ## **USAGE**
 
-[USAGE.md](/img/USAGE.md)  
+[USAGE.md](/assets/USAGE.md)  
 
 **spellcheck.py [-h] --input -i [word] --details -d (optional)**  
 **spellcheck.py book [-h] --details -d (optional)**
@@ -115,7 +115,7 @@ positional arguments:
 - **Execute and count the second~~sss~~ :one: :two:**
 
 <div>
-<img src="/img/powershell-gо-gramoten.gif"
+<img src="/assets/gifs/powershell-gо-gramoten.gif"
  alt="powershell"
  />
 </div>  
@@ -123,7 +123,7 @@ positional arguments:
 **:three: :four:**
 
 <div>
-<img src="/img/powershell-grammatical.gif"
+<img src="/assets/gifs/powershell-grammatical.gif"
  alt="terminus"
  />
 </div>
@@ -131,7 +131,7 @@ positional arguments:
 ### **BOOK MODE**
 
 <div>
-<img src="/img/book-mode.gif"
+<img src="/assets/gifs/book-mode.gif"
  alt="book-mode"
  />
 </div>
